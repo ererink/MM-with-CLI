@@ -24,6 +24,6 @@ public interface ChannelService {
      * @param channelDTO
      * @return 성공시 true, 실패시 false
      */
-    boolean addChannel(ChannelDTO channelDTO);
+    int addChannel(ChannelDTO channelDTO);
 
 }
