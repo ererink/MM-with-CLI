@@ -11,7 +11,7 @@ public class ChatDTO {
     public String title;
     public String content;
 
-
+    public ChatDTO(){}
     public ChatDTO(long chat_id, String user_id, long channel_id, String title, String content) {
         this.chat_id = chat_id;
         this.user_id = user_id;
