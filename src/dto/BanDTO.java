@@ -1,6 +1,6 @@
 package dto;
 
-public class ClassDTO {
+public class BanDTO {
     private long class_id;
     private String class_name;
 
@@ -12,7 +12,7 @@ public class ClassDTO {
         return class_name;
     }
 
-    public ClassDTO(long class_id, String class_name) {
+    public BanDTO(long class_id, String class_name) {
         this.class_id = class_id;
         this.class_name = class_name;
     }
