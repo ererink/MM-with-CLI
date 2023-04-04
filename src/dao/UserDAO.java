@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface UserDAO {
     List<UserDTO> selectAll();
 
-    Optional<UserDTO> selectOne();
+    Optional<UserDTO> selectOne(int id);
 
-    String join(String id, String pw);
+    String join(String id, String pw, String name);
 
     String update(UserDTO dto);
 }
