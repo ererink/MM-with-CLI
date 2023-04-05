@@ -3,12 +3,11 @@ package view;
 import dto.ChatDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ChatSuccessView {
 
 	public static void selectPrint(List<ChatDTO> list) {
-		System.out.println("----Board LIST ("+list.size()+") 개 ------------------");
+		System.out.println("======= "+list.size()+" 개가 조회되었습니다 =======");
 		for(ChatDTO chat : list) {
 			System.out.println(chat);
 		}

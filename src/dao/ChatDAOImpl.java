@@ -18,7 +18,7 @@ public class ChatDAOImpl implements ChatDAO{
         return instance;
     }
     @Override
-    public List<ChatDTO> selectAll(String user_id, long channel_id) {
+    public List<ChatDTO> selectAll(String user_id, long channel_id) throws RuntimeException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -43,7 +43,7 @@ public class ChatDAOImpl implements ChatDAO{
 
         }catch (SQLException e){
             e.printStackTrace();
-
+            throw new RuntimeException("전체 검색에 예외가 발생했습니다");
         }finally {
             DBManager.releaseConnection(con, ps, rs);
         }
@@ -51,7 +51,7 @@ public class ChatDAOImpl implements ChatDAO{
     }
 
     @Override
-    public Optional<ChatDTO> selectOne(long chat_id) {
+    public Optional<ChatDTO> selectOne(long chat_id) throws RuntimeException{
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -75,15 +75,14 @@ public class ChatDAOImpl implements ChatDAO{
             return Optional.ofNullable(dto);
         }catch (SQLException e){
             e.printStackTrace();
-
+            throw new RuntimeException("검색에 예외가 발생했습니다");
         }finally {
             DBManager.releaseConnection(con, ps, rs);
         }
-        return Optional.empty();
     }
 
     @Override
-    public List<ChatDTO> selectByTitle(long channel_id, String keyWord) {
+    public List<ChatDTO> selectByTitle(long channel_id, String keyWord) throws RuntimeException{
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -114,6 +113,7 @@ public class ChatDAOImpl implements ChatDAO{
 
         }catch (SQLException e){
             e.printStackTrace();
+            throw new RuntimeException("전체 검색에 예외가 발생했습니다");
         }finally {
             DBManager.releaseConnection(con, ps, rs);
         }
