@@ -26,4 +26,10 @@ public class ChannelDTO {
     public void setClass_id(long class_id) {
         this.class_id = class_id;
     }
+
+    @Override
+    public String toString() {
+        return "|"+ channel_id +
+                "|"+ channel_name + "|";
+    }
 }

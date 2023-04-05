@@ -67,16 +67,17 @@ public class ChannelDAOImpl implements ChannelDAO{
         }
         return list;
     }
-    public List<ChannelDTO> selectVisibleChannel(String user_id) {
+    public List<ChannelDTO> selectVisibleChannel(String user_id, long class_id) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<ChannelDTO> list = new ArrayList<>();
-        String sql = "select * from channel join user_channel_relation using channel_id where user_id = ?";
+        String sql = "select * from channel  join user_channel_relation  using channel_id where user_id = ? and class_id = ?";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1,user_id);
+            ps.setLong(2, class_id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ChannelDTO dto = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3));
