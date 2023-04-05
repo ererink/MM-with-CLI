@@ -33,7 +33,6 @@ public class ChannelServiceImpl implements ChannelService{
 
     @Override
     public int addChannel(ChannelDTO channelDTO) throws RuntimeException{
-        System.out.println("addChannel called");
         channelDTO.setClass_id(userSession.getClass_id());
         return channelDAO.insertChannel(channelDTO);
     }
