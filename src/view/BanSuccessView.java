@@ -21,6 +21,7 @@ public class BanSuccessView {
      * @param list
      */
     public static void selectPrint(List<BanDTO> list) {
+        System.out.println("===========MM with CLI CLASS LIST============");
         for (BanDTO banDTO : list) {
             System.out.println(banDTO);
         }
@@ -30,11 +31,9 @@ public class BanSuccessView {
      * 단일 반 성공시
      * @param banDTO
      */
-    public static void selectOne(BanDTO banDTO) {
-        System.out.println(banDTO);
-    }
-
-
+//    public static void selectOne(BanDTO banDTO) {
+//        System.out.println(banDTO);
+//    }
 
 
 }
