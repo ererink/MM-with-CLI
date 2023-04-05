@@ -43,7 +43,8 @@ public class ChannelDTO {
 
     @Override
     public String toString() {
-        return "|"+ channel_id +
+        String st = (isOpen==1)? "공개":"개인";
+        return "|"+st+ "|"+ channel_id +
                 "|"+ channel_name + "|";
     }
 }
