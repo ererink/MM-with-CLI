@@ -23,7 +23,7 @@ public class ChannelServiceImpl implements ChannelService{
 
     @Override
     public List<ChannelDTO> visibleChannelSelect() throws RuntimeException{
-        return channelDAO.selectVisibleChannel(userSession.getUser_id());
+        return channelDAO.selectVisibleChannel(userSession.getUser_id(), userSession.getClass_id());
     }
 
     @Override
