@@ -4,7 +4,7 @@ import dto.ChatDTO;
 import service.ChatService;
 import service.ChatServiceImpl;
 import view.FailView;
-import view.SuccessView;
+import view.ChatSuccessView;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +21,7 @@ public class ChatController {
             /**
              * SuccessView 작성 후 주석제거 예정
              */
-            SuccessView.selectPrint(chatList);
+            ChatSuccessView.selectPrint(chatList);
 
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
@@ -37,7 +37,7 @@ public class ChatController {
             /**
              * SuccessView 작성 후 주석제거 예정
              */
-            SuccessView.selectByNoPrint(dto);
+            ChatSuccessView.selectByNoPrint(dto);
 
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
@@ -53,7 +53,7 @@ public class ChatController {
             /**
              * SuccessView 작성 후 주석제거 예정
              */
-            SuccessView.selectPrint(chatList);
+            ChatSuccessView.selectPrint(chatList);
 
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
@@ -69,7 +69,7 @@ public class ChatController {
             /**
              * SuccessView 작성 후 주석제거 예정
              */
-            SuccessView.messagePrint("채팅이 등록되었습니다.");
+            ChatSuccessView.messagePrint("채팅이 등록되었습니다.");
 
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
@@ -85,7 +85,7 @@ public class ChatController {
             /**
              * SuccessView 작성 후 주석제거 예정
              */
-            SuccessView.messagePrint("채팅이 수정되었습니다.");
+            ChatSuccessView.messagePrint("채팅이 수정되었습니다.");
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
         }
@@ -100,7 +100,7 @@ public class ChatController {
             /**
              * SuccessView 작성 후 주석제거 예정
              */
-            SuccessView.messagePrint("채팅이 삭제되었습니다.");
+            ChatSuccessView.messagePrint("채팅이 삭제되었습니다.");
 
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
