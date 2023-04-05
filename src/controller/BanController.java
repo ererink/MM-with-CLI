@@ -5,7 +5,6 @@ import service.BanService;
 import service.BanServiceImpl;
 import view.BanSuccessView;
 import view.FailView;
-
 import java.util.List;
 
 public class BanController {
@@ -39,15 +38,15 @@ public class BanController {
     /**
      * 단일 반 검색하기
      */
-    public static void selectOneBan(int classNum){
-
-        try{
-            BanDTO banDTO = banService.selectOneBan(classNum);
-            BanSuccessView.selectOne(banDTO);
-        }catch (RuntimeException e){
-            FailView.errorMessage(e.getMessage());
-        }
-    };
+//    public static void selectOneBan(int classNum){
+//
+//        try{
+//            BanDTO banDTO = banService.selectOneBan(classNum);
+//            BanSuccessView.selectOne(banDTO);
+//        }catch (RuntimeException e){
+//            FailView.errorMessage(e.getMessage());
+//        }
+//    };
 
     /**
      * 반 수정하기
