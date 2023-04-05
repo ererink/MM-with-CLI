@@ -24,14 +24,13 @@ public class BanDAOImpl implements BanDAO{
         PreparedStatement ps = null;
 
         int result = 0;
-        String sql = "insert into class (class_id, class_name) values (?,?)";
+        String sql = "insert into class (class_id, class_name) values (class_id_pk.nextval,?)";
 
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
 
-            ps.setLong(1, banDTO.getClass_id());
-            ps.setString(2, banDTO.getClass_name());
+            ps.setString(1, banDTO.getClass_name());
 
             result = ps.executeUpdate();
         } catch (SQLException e){
