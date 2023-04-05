@@ -1,2 +1,5 @@
-package view;public class UserFailView {
+package view;
+
+public class UserFailView {
+
 }
