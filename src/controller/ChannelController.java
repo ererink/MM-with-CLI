@@ -7,6 +7,15 @@ import view.ChannelSuccessView;
 import view.FailView;
 
 public class ChannelController {
+    private ChannelController() {
+
+    }
+
+    private static ChannelController instance = new ChannelController();
+
+    public static ChannelController getInstance() {
+        return instance;
+    }
     private static ChannelService channelService = ChannelServiceImpl.getInstance();
 
     /**
@@ -41,6 +50,15 @@ public class ChannelController {
         try {
             channelService.updateChannel(channelDTO);
             ChannelSuccessView.messagePrint("채널이 업데이트 되었습니다");
+        } catch (RuntimeException e) {
+            FailView.errorMessage(e.getMessage());
+        }
+    }
+
+    public static void channelDelete(long channel_id) {
+        try {
+            channelService.deleteChannel(channel_id);
+            ChannelSuccessView.messagePrint("채널이 삭제되었습니다");
         } catch (RuntimeException e) {
             FailView.errorMessage(e.getMessage());
         }

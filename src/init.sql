@@ -21,25 +21,25 @@ create table users(
     user_pw varchar2(50),
     user_name varchar2(50),
     Role varchar(2),
-    class_id references class(class_id)
+    class_id references class(class_id) on delete cascade
 );
 
 create table channel(
     channel_id number(10) primary key,
     channel_name varchar2(50),
-    class_id references class(class_id)
+    class_id references class(class_id) on delete cascade
 );
 
 create table user_channel_relation(
-    user_id references users(user_id),
-    channel_id references channel(channel_id),
+    user_id references users(user_id) on delete cascade,
+    channel_id references channel(channel_id) on delete cascade,
     primary key(user_id, channel_id)
 );
 
 create table chat(
     chat_id varchar2(50) primary key,
-    user_id references users(user_id),
-    channel_id references channel(channel_id),
+    user_id references users(user_id) on delete cascade,
+    channel_id references channel(channel_id) on delete cascade,
     created_at date default sysdate,
     title varchar2(50),
     content varchar2(200)

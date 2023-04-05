@@ -24,13 +24,12 @@ public class ChannelDAOImpl implements ChannelDAO{
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
-        String sql = "insert into channel (channel_id, channel_name, class_id) values (?,?,?)";
+        String sql = "insert into channel (channel_id, channel_name, class_id) values (channel_id_pk.nextval,?,?)";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setLong(1, channelDTO.getChannel_id());
-            ps.setString(2,channelDTO.getChannel_name());
-            ps.setLong(3, channelDTO.getClass_id());
+            ps.setString(1,channelDTO.getChannel_name());
+            ps.setLong(2, channelDTO.getClass_id());
             result =  ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +71,7 @@ public class ChannelDAOImpl implements ChannelDAO{
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<ChannelDTO> list = new ArrayList<>();
-        String sql = "select * from channel  join user_channel_relation  using channel_id where user_id = ? and class_id = ?";
+        String sql = "select * from channel  join user_channel_relation  using (channel_id) where user_id = ? and class_id = ?";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
@@ -119,13 +118,12 @@ public class ChannelDAOImpl implements ChannelDAO{
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
-        String sql = "update channel set channel_name = ?, class_id = ? where channel_id = ?";
+        String sql = "update channel set channel_name = ? where channel_id = ?";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, channelDTO.getChannel_name());
-            ps.setLong(2,channelDTO.getClass_id());
-            ps.setLong(3, channelDTO.getClass_id());
+            ps.setLong(2, channelDTO.getChannel_id());
             result =  ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -30,8 +30,16 @@ public class UserSession {
         return channel_id;
     }
 
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
     public ROLE getRole() {
         return role;
+    }
+
+    public void setRole(ROLE role) {
+        this.role = role;
     }
 
     private long class_id = -1;
