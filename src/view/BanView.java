@@ -68,6 +68,7 @@ public class BanView {
     public static void manageBan(){
         BanController.selectAllBan();
         while(true){
+            System.out.print("0. [ 뒤로 가기    ");
             System.out.print("1. 반 추가하기   ");
             System.out.print("2. 반 수정하기   ");
             System.out.print("3. 반 삭제하기   ");
@@ -77,6 +78,8 @@ public class BanView {
             try{
                 int menu = Integer.parseInt(sc.nextLine());
                 switch (menu){
+                    case 0:
+                        return;
                     case 1:
                         insertClass();
                         break;
