@@ -20,7 +20,7 @@ public interface ChatDAO {
     /**
      * 채팅 내용 검색 조회 목록 출력
      */
-    List<ChatDTO> selectByContent(long channel_id, String keyWord);
+    List<ChatDTO> selectByTitle(long channel_id, String keyWord);
 
     /**
      * 채팅 생성

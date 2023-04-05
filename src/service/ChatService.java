@@ -25,7 +25,7 @@ public interface ChatService {
      * @param channel_id, keyWord
      * @return 키워드에 해당하는 채팅 정보
      */
-    List<ChatDTO> selectByContent(long channel_id, String keyWord);
+    List<ChatDTO> selectByTitle(long channel_id, String keyWord);
 
     /**
      * 채팅 생성

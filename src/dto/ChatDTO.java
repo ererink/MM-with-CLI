@@ -11,6 +11,27 @@ public class ChatDTO {
     public String title;
     public String content;
 
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setChannel_id(long channel_id) {
+        this.channel_id = channel_id;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ChatDTO{");
+        sb.append("chat_id=").append(chat_id);
+        sb.append(", user_id='").append(user_id).append('\'');
+        sb.append(", channel_id=").append(channel_id);
+        sb.append(", dateTime=").append(dateTime);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", content='").append(content).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
     public ChatDTO(){}
     public ChatDTO(long chat_id, String user_id, long channel_id, String title, String content) {
         this.chat_id = chat_id;

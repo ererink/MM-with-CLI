@@ -35,8 +35,8 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public List<ChatDTO> selectByContent(long channel_id, String keyWord) throws RuntimeException{
-        List<ChatDTO> chatDTO = chatDAO.selectByContent(userSession.getChannel_id(), keyWord);
+    public List<ChatDTO> selectByTitle(long channel_id, String keyWord) throws RuntimeException{
+        List<ChatDTO> chatDTO = chatDAO.selectByTitle(userSession.getChannel_id(), keyWord);
         if (chatDTO.size() == 0){
             throw new RuntimeException("해당 키워드에 대한 채팅이 없습니다.");
         }
@@ -45,6 +45,9 @@ public class ChatServiceImpl implements ChatService{
 
     @Override
     public boolean createChat(ChatDTO chatDTO) throws RuntimeException{
+        chatDTO.setChannel_id(userSession.getChannel_id());
+        chatDTO.setUser_id(userSession.getUser_id());
+
         int result = chatDAO.create(chatDTO);
         if (result == 0){
             throw new RuntimeException("채팅이 등록되지 않았습니다.");
@@ -54,6 +57,9 @@ public class ChatServiceImpl implements ChatService{
 
     @Override
     public boolean updateChat(ChatDTO chatDTO) throws RuntimeException{
+        chatDTO.setChannel_id(userSession.getChannel_id());
+        chatDTO.setUser_id(userSession.getUser_id());
+
         int result = chatDAO.update(chatDTO);
         if (result == 0){
             throw new RuntimeException("채팅이 수정되지 않았습니다.");
@@ -66,9 +72,12 @@ public class ChatServiceImpl implements ChatService{
 
     @Override
     public boolean deleteChat(ChatDTO chatDTO) {
+        chatDTO.setChannel_id(userSession.getChannel_id());
+        chatDTO.setUser_id(userSession.getUser_id());
+
         int result = chatDAO.delete(chatDTO.getChannel_id(), chatDTO.getChat_id());
         if (result == 0){
-            throw new RuntimeException("채팅이 수정되지 않았습니다.");
+            throw new RuntimeException("채팅이 삭제되지 않았습니다.");
         }
         if (userSession.getUser_id() != chatDTO.getUser_id()){
             throw new RuntimeException("본인의 채팅만 삭제할 수 있습니다.");
