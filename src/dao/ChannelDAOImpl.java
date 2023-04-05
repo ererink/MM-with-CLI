@@ -54,9 +54,6 @@ public class ChannelDAOImpl implements ChannelDAO{
             ps = con.prepareStatement(sql);
             ps.setLong(1,channel_id);
             rs = ps.executeQuery();
-            if (rs.wasNull()) {
-                throw new RuntimeException();
-            }
             while (rs.next()) {
                 channelDTO = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3),rs.getInt(4));
             }

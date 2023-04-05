@@ -7,6 +7,13 @@ public class UserSession {
     private String user_name = null;
     private String channel_name = null;
 
+    public String getChannel_name() {
+        return channel_name;
+    }
+
+    public void setChannel_name(String channel_name) {
+        this.channel_name = channel_name;
+    }
 
     public void setClass_id(long class_id) {
         this.class_id = class_id;

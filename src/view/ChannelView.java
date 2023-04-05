@@ -4,6 +4,8 @@ import controller.ChannelController;
 import dao.UserChannelDAO;
 import dto.ChannelDTO;
 import dto.ROLE;
+import service.ChannelService;
+import service.ChannelServiceImpl;
 import session.UserSession;
 
 import java.util.HashSet;
@@ -12,6 +14,7 @@ import java.util.Set;
 
 public class ChannelView {
     static Scanner sc = new Scanner(System.in);
+    private static ChannelService channelService = ChannelServiceImpl.getInstance();
     static UserSession userSession = UserSession.getInstance();
     public static void channelChoice() {
         System.out.println("  ______   __                                                __ \n" +
@@ -64,6 +67,7 @@ public class ChannelView {
         System.out.print("입장할 채널 번호를 입력해주세요: ");
         int channel_id = Integer.parseInt(sc.nextLine());
         userSession.setChannel_id(channel_id);
+        userSession.setChannel_name(channelService.selectOneChannel(channel_id).getChannel_name());
         ChatView.menuChoice();
     }
 
