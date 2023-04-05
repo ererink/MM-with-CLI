@@ -24,7 +24,6 @@ public class UserDAOImpl implements UserDAO {
      * 회원 전체 조회 함수
      */
     @Override
-
     public List<UserDTO> selectAll() {
         String sql = "SELECT * FROM users";
         List<UserDTO> users = new ArrayList<>();
@@ -51,16 +50,40 @@ public class UserDAOImpl implements UserDAO {
 
         return users;
     }
+    @Override
+    public List<UserDTO> selectByClass(long id) {
+        String sql = "SELECT * FROM users WHERE class_id = ?";
+        List<UserDTO> users = new ArrayList<>();
+
+        try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setLong(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                users.add(
+                        new UserDTO(
+                                rs.getString("USER_ID"),
+                                rs.getString("USER_PW"),
+                                rs.getString("USER_NAME"),
+                                ROLE.valueOf(rs.getString("ROLE")),
+                                rs.getInt("CLASS_ID"))
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return users;
+    }
 
     @Override
     /**
      * 회원 단건 조회 함수
      */
-    public Optional<UserDTO> selectOne(int id) {
+    public Optional<UserDTO> selectOne(String id) {
         String sql = "SELECT * FROM users WHERE user_id = ?";
         Optional<UserDTO> user = null;
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
+            pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -82,23 +105,30 @@ public class UserDAOImpl implements UserDAO {
     /**
      * 회원가입 함수
      */
-    public String join(String id, String pw, String name) {
-        String sql = "INSERT INTO users(user_id, user_pw, user_name) VALUES(?, ?, ?)";
+    public int join(UserDTO dto) {
+        String sql = "INSERT INTO users(user_id, user_pw, user_name, role) VALUES(?, ?, ?, ?)";
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setString(1, id);
-            pstmt.setString(2, pw);
-            pstmt.setString(3, name);
-            pstmt.executeUpdate();
-            int result = pstmt.executeUpdate();
-
-            if (result == 0) {
-                throw new RuntimeException("가입할 수 없는 상태입니다.");
-            } else {
-                return id;
-            }
+            pstmt.setString(1, dto.getUser_id());
+            pstmt.setString(2, dto.getUser_pw());
+            pstmt.setString(3, dto.getName());
+            pstmt.setString(4, dto.getRole().toString());
+            return pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int delete(String id) {
+        String sql = "DELETE FROM users WHERE user_id = ?";
+        try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            return pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("삭제 불가합니다.");
         }
     }
 
@@ -107,7 +137,7 @@ public class UserDAOImpl implements UserDAO {
      * 패스워드, 이름, 반, Role 수정 함수
      * 관리자 등록과 회원 가입 승인, 회원 정보 수정에 이용
      */
-    public String update(UserDTO dto) {
+    public int update(UserDTO dto) {
         String sql = "UPDATE users SET user_pw = ?, user_name = ?, ROLE = ?, class_id = ? WHERE user_id = ?";
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, dto.getUser_pw());
@@ -115,13 +145,8 @@ public class UserDAOImpl implements UserDAO {
             pstmt.setString(3, dto.getRole().toString());
             pstmt.setInt(4, dto.getClass_id());
             pstmt.setString(5, dto.getUser_id());
+            return pstmt.executeUpdate();
 
-            int result = pstmt.executeUpdate();
-            if (result == 0) {
-                throw new RuntimeException("수정이 반영되지 않았습니다");
-            } else {
-                return dto.getUser_id();
-            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
