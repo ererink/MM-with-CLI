@@ -27,9 +27,9 @@ public class ChatDAOImpl implements ChatDAO{
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
             ps.setString(1, user_id);
             ps.setLong(2, channel_id);
+            rs = ps.executeQuery();
 
             while (rs.next()){
                 ChatDTO dto = new ChatDTO(
@@ -51,10 +51,37 @@ public class ChatDAOImpl implements ChatDAO{
     }
 
     @Override
-    public Optional<ChatDTO> selectOne(long channel_id, String keyWord) {
+    public Optional<ChatDTO> selectOne(long chat_id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ChatDTO dto = null;
+        String sql = "select * from chat where chat_id = ?";
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, chat_id);
+            rs = ps.executeQuery();
 
+            if (rs.next()){
+                dto = new ChatDTO(
+                        rs.getLong("chat_id"),
+                        rs.getString("user_id"),
+                        rs.getLong("channel_id"),
+                        rs.getString("title"),
+                        rs.getString("content")
+                );
+            }
+            return Optional.of(dto);
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }finally {
+            DBManager.releaseConnection(con, ps, rs);
+        }
         return Optional.empty();
     }
+
     @Override
     public List<ChatDTO> selectByContent(long channel_id, String keyWord) {
         Connection con = null;
@@ -76,13 +103,15 @@ public class ChatDAOImpl implements ChatDAO{
             ps.setString(2, keyWord);
             rs = ps.executeQuery();
 
-            ChatDTO dto = new ChatDTO(
-                    rs.getLong("chat_id"),
-                    rs.getString("user_id"),
-                    rs.getLong("channel_id"),
-                    rs.getString("title"),
-                    rs.getString("content"));
-            list.add(dto);
+            while (rs.next()) {
+                ChatDTO dto = new ChatDTO(
+                        rs.getLong("chat_id"),
+                        rs.getString("user_id"),
+                        rs.getLong("channel_id"),
+                        rs.getString("title"),
+                        rs.getString("content"));
+                list.add(dto);
+            }
 
         }catch (SQLException e){
             e.printStackTrace();
