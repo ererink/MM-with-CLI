@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelDAOImpl implements ChannelDAO{
-    private ChannelDAO instance = new ChannelDAOImpl();
+    private static ChannelDAO instance = new ChannelDAOImpl();
     private ChannelDAOImpl() {
 
     }
