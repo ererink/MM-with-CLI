@@ -90,17 +90,16 @@ public class ChatDAOImpl implements ChatDAO{
         List<ChatDTO> list = new ArrayList<>();
 
         /**
-         * 하나의 채널에서 하나의 채팅을 찾는다면 해당 channel_id를 조회하고 해당 키워드를 찾는 시나리오로 구성
-         * ex) 하나의 카톡방에 검색어를 입력하여 찾고자하는 채팅을 찾는다.
+         * 해당 채팅 제목에 포함되는 키워드를 찾는 시나리오로 구성
          */
-        String sql = "select * from chat where channel_id  = ? and content like ?";
+        String sql = "select * from chat where channel_id  = ? and title like ?";
 
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             String title = '%' + keyWord + '%';
             ps.setLong(1, channel_id);
-            ps.setString(2, keyWord);
+            ps.setString(2, title);
             rs = ps.executeQuery();
 
             while (rs.next()) {
