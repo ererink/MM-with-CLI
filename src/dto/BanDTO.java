@@ -16,4 +16,12 @@ public class BanDTO {
         this.class_id = class_id;
         this.class_name = class_name;
     }
+
+    @Override
+    public String toString() {
+        return "BanDTO{" +
+                "class_id=" + class_id +
+                ", class_name='" + class_name + '\'' +
+                '}';
+    }
 }
