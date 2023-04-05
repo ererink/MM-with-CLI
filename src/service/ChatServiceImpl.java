@@ -17,7 +17,7 @@ public class ChatServiceImpl implements ChatService{
         return instance;
     }
     @Override
-    public List<ChatDTO> selectChatByChannel() throws RuntimeException{
+    public List<ChatDTO> selectAllChat() throws RuntimeException{
         List<ChatDTO> chatList = chatDAO.selectAll(userSession.getUser_id(), userSession.getChannel_id());
         if (chatList.size() == 0){
           throw new RuntimeException("채팅이 없습니다.");

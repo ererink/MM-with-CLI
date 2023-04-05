@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public interface ChatService {
     /**
-     * 선택한 방의 채팅 조회
+     * 선택한 채널의 모든 채팅 조회
      * @return 해당 방의 채팅 목록
      */
-    List<ChatDTO> selectChatByChannel();
+    List<ChatDTO> selectAllChat();
 
     /**
      * chat_id에 해당하는 채팅 검색
