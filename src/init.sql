@@ -6,25 +6,27 @@ drop table users;
 drop table class;
 drop sequence class_id_pk;
 drop sequence channel_id_pk;
+drop sequence chat_id_pk;
 --시퀀스
 create sequence class_id_pk;
 create sequence channel_id_pk;
+create sequence chat_id_pk;
 
 create table class(
     class_id number(10) primary key,
-    class_name varchar(50)
+    class_name varchar2(50)
 );
 create table users(
-    user_id varchar(20) primary key,
-    user_pw varchar(50),
-    user_name varchar(50),
+    user_id varchar2(20) primary key,
+    user_pw varchar2(50),
+    user_name varchar2(50),
     Role varchar(2),
     class_id references class(class_id)
 );
 
 create table channel(
     channel_id number(10) primary key,
-    channel_name varchar(50),
+    channel_name varchar2(50),
     class_id references class(class_id)
 );
 
@@ -35,12 +37,12 @@ create table user_channel_relation(
 );
 
 create table chat(
+    chat_id varchar2(50) primary key,
     user_id references users(user_id),
     channel_id references channel(channel_id),
-    created_at date,
-    title varchar(50),
-    content varchar(200),
-    primary key(user_id, channel_id, created_at)
+    created_at date default sysdate,
+    title varchar2(50),
+    content varchar2(200)
 );
 
 
@@ -63,10 +65,10 @@ insert into user_channel_relation values ('adoo24',2);
 insert into user_channel_relation values ('ooda24',2);
 
 --공개방채팅
-insert into chat values ('adoo24',1,sysdate,'오늘의 숙제','숙제 내용입니다');
+insert into chat values (chat_id_pk.nextval,'adoo24',1,sysdate,'오늘의 숙제','숙제 내용입니다');
 --개인채팅
-insert into chat values ('adoo24',2,sysdate,'하이','하이');
-insert into chat values ('ooda24',2,sysdate,'hi','hi');
+insert into chat values (chat_id_pk.nextval,'adoo24',2,sysdate,'하이','하이');
+insert into chat values (chat_id_pk.nextval,'ooda24',2,sysdate,'hi','hi');
 
 
 

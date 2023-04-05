@@ -11,11 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelDAOImpl implements ChannelDAO{
+    private ChannelDAO instance = new ChannelDAOImpl();
+    private ChannelDAOImpl() {
+
+    }
+    public ChannelDAO getInstance() {
+        return instance;
+    }
+
     @Override
     public int insertChannel(ChannelDTO channelDTO) {
         Connection con = null;
         PreparedStatement ps = null;
-        int result = 1;
+        int result = 0;
         String sql = "insert into channel (channel_id, channel_name, class_id) values (?,?,?)";
         try {
             con = DBManager.getConnection();
@@ -63,7 +71,7 @@ public class ChannelDAOImpl implements ChannelDAO{
     public int deleteChannel(ChannelDTO channelDTO) {
         Connection con = null;
         PreparedStatement ps = null;
-        int result = 1;
+        int result = 0;
         String sql = "delete from channel where channel_id = ?";
         try {
             con = DBManager.getConnection();
@@ -84,7 +92,7 @@ public class ChannelDAOImpl implements ChannelDAO{
     public int updateChannel(ChannelDTO channelDTO) {
         Connection con = null;
         PreparedStatement ps = null;
-        int result = 1;
+        int result = 0;
         String sql = "update channel set channel_name = ?, class_id = ? where channel_id = ?";
         try {
             con = DBManager.getConnection();
