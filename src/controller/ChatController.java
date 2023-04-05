@@ -33,7 +33,7 @@ public class ChatController {
      */
     public static void selectOne(long chat_id) {
         try {
-            Optional<ChatDTO> dto = chatService.selectOne(chat_id);
+            ChatDTO dto = chatService.selectOne(chat_id).get();
             /**
              * SuccessView 작성 후 주석제거 예정
              */

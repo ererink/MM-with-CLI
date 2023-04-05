@@ -31,7 +31,7 @@ public class ChatServiceImpl implements ChatService{
         if (chatDTO.isEmpty()){
             throw new RuntimeException("검색한 채팅 정보가 존재하지 않습니다.");
         }
-        return Optional.empty();
+        return chatDTO;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ChatSuccessView {
 		
 	}
 
-	public static void selectByNoPrint(Optional<ChatDTO> chatDTO) {
+	public static void selectByNoPrint(ChatDTO chatDTO) {
 		System.out.println(chatDTO);
 		
 	}
