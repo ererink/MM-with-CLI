@@ -23,12 +23,12 @@ public class ChatDTO {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append(chat_id).append("  ");
-        sb.append(", user_id='").append(user_id).append('\'');
-        sb.append(", channel_id=").append(channel_id);
-        sb.append(", dateTime=").append(dateTime);
-        sb.append(", title='").append(title).append('\'');
-        sb.append(", content='").append(content).append('\'');
-        sb.append('}');
+        sb.append(user_id).append("  ");
+        //sb.append(", channel_id=").append(channel_id);
+
+        sb.append(title).append("  ");
+        sb.append(content).append("  ");
+        sb.append(dateTime.toString().substring(2, 10));
         return sb.toString();
     }
 
