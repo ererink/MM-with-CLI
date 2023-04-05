@@ -27,7 +27,8 @@ create table users(
 create table channel(
     channel_id number(10) primary key,
     channel_name varchar2(50),
-    class_id references class(class_id) on delete cascade
+    class_id references class(class_id) on delete cascade,
+    isOpen number(1)
 );
 
 create table user_channel_relation(
@@ -53,13 +54,10 @@ insert into users values ('adoo24','1234','준서','U',1);
 insert into users values ('ooda24','1234','서준','U',1);
 insert into users values ('oodaa24','1234','서서준','U',1);
 
-insert into channel values (channel_id_pk.nextval,'공개채널',1);
-insert into channel values (channel_id_pk.nextval, '준서, 서준 개인메세지',1);
+insert into channel values (channel_id_pk.nextval,'공개채널',1,1);
+insert into channel values (channel_id_pk.nextval, '준서, 서준 개인메세지',1,0);
 
---공개 채널(채널 id 1)
-insert into user_channel_relation values ('adoo24',1);
-insert into user_channel_relation values ('ooda24',1);
-insert into user_channel_relation values ('oodaa24',1);
+
 --개인 메세지 채널(채널 id 2)
 insert into user_channel_relation values ('adoo24',2);
 insert into user_channel_relation values ('ooda24',2);
@@ -79,3 +77,9 @@ select * from users;
 select * from channel;
 select * from user_channel_relation;
 select * from chat;
+select * from channel where class_id = 1 or isOpen = 1;
+
+select * from channel  join user_channel_relation  using (channel_id) where (user_id = 'adoo24' or isopen=1) and class_id = 1;
+
+
+commit;

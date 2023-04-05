@@ -4,6 +4,7 @@ import dao.ChannelDAO;
 import dao.ChannelDAOImpl;
 import dto.BanDTO;
 import dto.ChannelDTO;
+import dto.ROLE;
 import session.UserSession;
 
 import java.util.ArrayList;
@@ -26,6 +27,11 @@ public class ChannelServiceImpl implements ChannelService{
         return channelDAO.selectVisibleChannel(userSession.getUser_id());
     }
 
+    /**
+     * 안씀
+     * @return
+     * @throws RuntimeException
+     */
     @Override
     public List<ChannelDTO> channelSelectByBan() throws RuntimeException {
         return channelDAO.selectAllChannel(userSession.getChannel_id());
@@ -33,7 +39,9 @@ public class ChannelServiceImpl implements ChannelService{
 
     @Override
     public int addChannel(ChannelDTO channelDTO) throws RuntimeException{
-        System.out.println("addChannel called");
+        if (channelDTO.getIsOpen() == 1 && userSession.getRole() != ROLE.A) {
+            throw new RuntimeException("관리자가 아니면 공개채널 삽입 불가능합니다.");
+        }
         channelDTO.setClass_id(userSession.getClass_id());
         return channelDAO.insertChannel(channelDTO);
     }
