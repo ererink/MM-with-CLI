@@ -28,5 +28,5 @@ public interface BanService {
     /**
      * 반 삭제하기
      */
-    int deleteBan(BanDTO banDTO);
+    int deleteBan(int classNum);
 }

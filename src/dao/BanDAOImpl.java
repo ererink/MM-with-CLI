@@ -130,7 +130,7 @@ public class BanDAOImpl implements BanDAO{
     }
 
     @Override
-    public int deleteBan(BanDTO banDTO) {
+    public int deleteBan(int classNum) {
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
@@ -141,7 +141,7 @@ public class BanDAOImpl implements BanDAO{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
 
-            ps.setLong(1, banDTO.getClass_id());
+            ps.setLong(1, classNum);
 
             result =  ps.executeUpdate();
         }catch (SQLException e){
@@ -152,7 +152,7 @@ public class BanDAOImpl implements BanDAO{
         }
 
         return result;
-
     }
+
 
 }

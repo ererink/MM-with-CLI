@@ -56,11 +56,13 @@ public class BanServiceImpl implements BanService{
     }
 
     @Override
-    public int deleteBan(BanDTO banDTO) {
-        int result = banDAO.deleteBan(banDTO);
+    public int deleteBan(int classNum) {
+        int result = banDAO.deleteBan(classNum);
+
         if(result == 0){
             throw new RuntimeException("반의 정보를 삭제할 수 없습니다. 다시 삭제해 주세요.");
         }
-        return result;
+        return 0;
     }
+
 }
