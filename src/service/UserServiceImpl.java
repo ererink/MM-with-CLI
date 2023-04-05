@@ -24,31 +24,68 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> userSelectAll() {
-        return dao.selectAll();
+        List<UserDTO> users = null;
+        try {
+            users = dao.selectAll();
+
+        } catch (RuntimeException e) {
+
+        }
+        return users;
     }
     @Override
     public List<UserDTO> selectByClass(long id) {
-        return dao.selectByClass(id);
+        List<UserDTO> users = null;
+        try {
+            users = dao.selectByClass(id);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        return users;
     }
 
     @Override
     public Optional<UserDTO> userSelectOne(String id) {
-        return dao.selectOne(id);
+        Optional<UserDTO> user = null;
+        try {
+            user = dao.selectOne(id);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        return user;
     }
 
     @Override
     public int userUpdate(UserDTO userDTO) {
-        return dao.update(userDTO);
+        try {
+            return dao.update(userDTO);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+
     }
 
     @Override
     public int userDelete(String id) {
-        return dao.delete(id);
+        try {
+            return dao.delete(id);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public int addUser(UserDTO dto) {
-        return dao.join(dto);
+        try {
+            return dao.join(dto);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     @Override

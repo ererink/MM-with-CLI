@@ -52,4 +52,5 @@ public class UserDTO {
                 ", class_id=" + class_id +
                 '}';
     }
+
 }
