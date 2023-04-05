@@ -40,17 +40,17 @@ public class ChatView {
         userSession.setUser_id("adoo24");
         
         while (true){
+            System.out.println();
             System.out.print("========================================================");
-
             System.out.print(" CHANNEL [ "+userSession.getChannel_name()+" ] ");
             System.out.print("========================================================\n");
-            System.out.print("|| 1. 모든 채팅 조회하기   ");
+            System.out.print("∥  1. 모든 채팅 조회하기   ");
             System.out.print("2. 채팅번호로 조회하기   ");
             System.out.print("3. 제목으로 채팅 조회하기   ");
             System.out.print("4. 채팅 등록하기   ");
             System.out.print("5. 채팅 수정하기   ");
             System.out.print("6. 채팅 삭제하기   ");
-            System.out.print("7. 종료 ||");
+            System.out.print("7. 종료   ∥");
             System.out.println("\n==================================================================================================================================");
             System.out.print("선택 ▶ ");
 
@@ -77,10 +77,11 @@ public class ChatView {
                         inputDeleteChat();
                         break;
                     case 7:
-                        System.out.println("============= 종료 ============");
+                        System.out.println();
+                        System.out.println("  종료 --<-<-<@,,, ADIOS,,,");
                         return;
                     default:
-                        System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
+                        System.out.println("잘못된 입력입니다. 다시 입력해주세요!");
                 }
             }catch (NumberFormatException e){
                 System.out.println("숫자 입력만 가능해요!");
@@ -94,10 +95,13 @@ public class ChatView {
      */
     public static void inputSelectOne(){
         try {
-            System.out.println("찾으실 채팅 번호를 입력해주세요");
             // 채팅 목록 출력
             ChatController.selectAllChat();
+            System.out.println();
+            System.out.println("====================== 찾으실 채팅 번호를 입력해주세요 ======================");
+
             // 입력값
+            System.out.print("채팅 번호 ▶ ");
             String num = sc.nextLine();
             
             ChatController.selectOne(Integer.parseInt(num));
@@ -108,21 +112,24 @@ public class ChatView {
     }
 
     public static void inputSelectByTitle(){
-        System.out.println("찾으실 키워드를 입력해주세요");
         // 채팅 목록 출력
         ChatController.selectAllChat();
+        System.out.println();
+        System.out.println("====================== 찾으실 키워드를 입력해주세요 ======================");
+
         // 입력값
-        System.out.print("키워드 : ");
+        System.out.print("키워드 ▶ ");
         String word = sc.nextLine();
         ChatController.selectByTitle(userSession.getChannel_id(), word);
     }
 
     public static void inputCreateChat(){
-        System.out.println("======== 제목과 내용을 입력해주세요 ========");
-        System.out.print("제목 : ");
+        System.out.println();
+        System.out.println("====================== 채팅을 입력해주세요 ======================");
+        System.out.print("제목 ▶ ");
         String title = sc.nextLine();
 
-        System.out.print("내용 : ");
+        System.out.print("내용 ▶ ");
         String content = sc.nextLine();
 
         ChatDTO chat = new ChatDTO(0, userSession.getUser_id(), userSession.getChannel_id(), title, content);
@@ -130,14 +137,15 @@ public class ChatView {
     }
 
     public static void inputUpdateChat(){
-        System.out.println("======== 수정할 채팅 번호와 내용을 입력해주세요 ========");
         // 채팅 목록 출력
         ChatController.selectAllChat();
+        System.out.println();
+        System.out.println("========================== 수정할 채팅번호를 입력해주세요 ==========================");
 
-        System.out.print("채팅 번호 : ");
+        System.out.print("채팅 번호 ▶ ");
         // 입력값
         int num = Integer.parseInt(sc.nextLine());
-        System.out.print("내용 : ");
+        System.out.print("내용 ▶ ");
         String content = sc.nextLine();
 
         ChatDTO chat = new ChatDTO(num, userSession.getUser_id(), userSession.getChannel_id(), "title", content);
@@ -145,11 +153,12 @@ public class ChatView {
     }
 
     public static void inputDeleteChat(){
-        System.out.println("===== 삭제할 내용을 채팅 번호를 입력해주세요 =====");
         // 채팅 목록 출력
         ChatController.selectAllChat();
+        System.out.println();
+        System.out.println("========================== 삭제할 채팅번호를 입력해주세요 ==========================");
 
-        System.out.print("채팅 번호 : ");
+        System.out.print("채팅 번호 ▶ ");
         // 입력값
         int num = Integer.parseInt(sc.nextLine());
 

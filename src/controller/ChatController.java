@@ -34,9 +34,7 @@ public class ChatController {
     public static void selectOne(long chat_id) {
         try {
             ChatDTO dto = chatService.selectOne(chat_id).get();
-            /**
-             * SuccessView 작성 후 주석제거 예정
-             */
+
             ChatSuccessView.selectByNoPrint(dto);
 
         }catch (RuntimeException e){
@@ -50,9 +48,7 @@ public class ChatController {
     public static void selectByTitle(long channel_id, String keyWord){
         try {
             List<ChatDTO> chatList = chatService.selectByTitle(channel_id, keyWord);
-            /**
-             * SuccessView 작성 후 주석제거 예정
-             */
+
             ChatSuccessView.selectPrint(chatList);
 
         }catch (RuntimeException e){
@@ -66,10 +62,10 @@ public class ChatController {
     public static void createChat(ChatDTO chat){
         try {
             chatService.createChat(chat);
-            /**
-             * SuccessView 작성 후 주석제거 예정
-             */
-            ChatSuccessView.messagePrint("채팅이 등록되었습니다.");
+
+            System.out.println("\n-----------------");
+            ChatSuccessView.messagePrint(" * 채팅 등록 완료 *");
+            System.out.println("-----------------");
 
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
@@ -82,10 +78,10 @@ public class ChatController {
     public static void updateChat(ChatDTO chat){
         try {
             chatService.updateChat(chat);
-            /**
-             * SuccessView 작성 후 주석제거 예정
-             */
-            ChatSuccessView.messagePrint("채팅이 수정되었습니다.");
+
+            System.out.println("\n-----------------");
+            ChatSuccessView.messagePrint(" * 채팅 수정 완료 *");
+            System.out.println("-----------------");
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());
         }
@@ -97,10 +93,10 @@ public class ChatController {
     public static void deleteChat(ChatDTO chat){
         try {
             chatService.deleteChat(chat);
-            /**
-             * SuccessView 작성 후 주석제거 예정
-             */
-            ChatSuccessView.messagePrint("채팅이 삭제되었습니다.");
+
+            System.out.println("\n-----------------");
+            ChatSuccessView.messagePrint(" * 채팅 삭제 완료 *");
+            System.out.println("-----------------");
 
         }catch (RuntimeException e){
             FailView.errorMessage(e.getMessage());

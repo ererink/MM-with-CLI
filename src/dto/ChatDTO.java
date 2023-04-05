@@ -22,15 +22,23 @@ public class ChatDTO {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(chat_id).append("  ");
-        sb.append(user_id).append("  ");
-        //sb.append(", channel_id=").append(channel_id);
-
-        sb.append(title).append("  ");
-        sb.append(content).append("  ");
-        sb.append(dateTime.toString().substring(2, 10));
+        String c_id = String.format("%-3s", chat_id);
+        sb.append(c_id);
+        String u_id = String.format("%-10s", user_id);
+        sb.append(u_id);
+        String tit = String.format("%-20s", title);
+        sb.append(tit);
+        String cont = String.format("%-40s", content);
+        sb.append(cont);
+//        sb.append(user_id).append("  ");
+//        sb.append(title).append("  ");
+//        sb.append(content).append("  ");
+        String date = String.format("%-10s", dateTime.toString().substring(2, 10));
+        sb.append(date);
+//        sb.append(dateTime.toString().substring(2, 10));
         return sb.toString();
     }
+
 
     public ChatDTO(){}
     public ChatDTO(long chat_id, String user_id, long channel_id, String title, String content) {
