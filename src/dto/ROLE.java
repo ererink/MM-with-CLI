@@ -1,5 +1,5 @@
 package dto;
 
 public enum ROLE {
-    STUDENT, ADMIN
+    U,A,N
 }
