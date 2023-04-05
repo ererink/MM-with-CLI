@@ -13,21 +13,15 @@ public class BanView {
     static UserSession userSession = UserSession.getInstance();
 
     public static void banChoice(){
-//            1. 반 목록 확인하기
-//            1-1. 반 추가 하기
-//            1-2. 반 수정 하기
-//            1-3. 반 삭제 하기
 
             while(true){
                 if(userSession.getRole() == ROLE.A){
-                    System.out.println("\n----------------------------------------");
-
-                    System.out.print("0. [ 뒤로 가기    ");
+                    System.out.println("\n-------------------------------------------------------------------------------");
+                    System.out.print("[ 0.뒤로 가기    ");
                     System.out.print("1. 반 입장하기   ");
-                    System.out.print("2. 반 관리하기  ");
-
-                    System.out.println("\n--------------------------------------------");
-                    System.out.print("기능을 선택하세요: ");
+                    System.out.print("2. 반 관리하기   ]");
+                    System.out.println("\n-------------------------------------------------------------------------------");
+                    System.out.print("기능을 선택하세요 : ");
             }
             try{
                 int menu = Integer.parseInt(sc.nextLine());
@@ -68,12 +62,13 @@ public class BanView {
     public static void manageBan(){
         BanController.selectAllBan();
         while(true){
-            System.out.print("0. [ 뒤로 가기    ");
+            System.out.println("\n-------------------------------------------------------------------------------");
+            System.out.print("[ 0.뒤로 가기    ");
             System.out.print("1. 반 추가하기   ");
             System.out.print("2. 반 수정하기   ");
-            System.out.print("3. 반 삭제하기   ");
-            System.out.println("\n--------------------------------------------");
-            System.out.print("기능을 선택하세요: ");
+            System.out.print("3. 반 삭제하기   ]");
+            System.out.println("\n-------------------------------------------------------------------------------");
+            System.out.print("기능을 선택하세요 : ");
 
             try{
                 int menu = Integer.parseInt(sc.nextLine());
