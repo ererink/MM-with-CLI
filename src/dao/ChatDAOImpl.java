@@ -113,14 +113,14 @@ public class ChatDAOImpl implements ChatDAO{
 
         }catch (SQLException e){
             e.printStackTrace();
-            throw new RuntimeException("전체 검색에 예외가 발생했습니다");
+            throw new RuntimeException("키워드 검색에 예외가 발생했습니다");
         }finally {
             DBManager.releaseConnection(con, ps, rs);
         }
         return list;
     }
     @Override
-    public int create(ChatDTO chatDTO) {
+    public int create(ChatDTO chatDTO) throws RuntimeException{
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
@@ -136,6 +136,7 @@ public class ChatDAOImpl implements ChatDAO{
             result = ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
+            throw new RuntimeException("채팅 등록에 예외가 발생했습니다.");
         }finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -143,7 +144,7 @@ public class ChatDAOImpl implements ChatDAO{
     }
 
     @Override
-    public int update(ChatDTO chatDTO) {
+    public int update(ChatDTO chatDTO) throws RuntimeException{
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
@@ -160,6 +161,7 @@ public class ChatDAOImpl implements ChatDAO{
 
         }catch (SQLException e){
             e.printStackTrace();
+            throw new RuntimeException("채팅 수정에 예외가 발생했습니다.");
         }finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -181,6 +183,7 @@ public class ChatDAOImpl implements ChatDAO{
 
         }catch (SQLException e){
             e.printStackTrace();
+            throw new RuntimeException("채팅 삭제에 예외가 발생했습니다.");
         }finally {
             DBManager.releaseConnection(con, ps);
         }
