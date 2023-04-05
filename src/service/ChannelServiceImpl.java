@@ -23,7 +23,7 @@ public class ChannelServiceImpl implements ChannelService{
 
     @Override
     public List<ChannelDTO> visibleChannelSelect() throws RuntimeException{
-        return channelDAO.selectVisibleChannel(userSession.getUser_id(), userSession.getClass_id());
+        return channelDAO.selectVisibleChannel(userSession.getUser_id());
     }
 
     @Override
@@ -39,12 +39,12 @@ public class ChannelServiceImpl implements ChannelService{
     }
 
     @Override
-    public int deleteChannel(long channel_id) {
+    public int deleteChannel(long channel_id) throws RuntimeException {
         return channelDAO.deleteChannel(channel_id);
     }
 
     @Override
-    public int updateChannel(ChannelDTO channelDTO) {
+    public int updateChannel (ChannelDTO channelDTO) throws RuntimeException {
         return channelDAO.updateChannel(channelDTO);
     }
 

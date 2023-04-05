@@ -1,11 +1,14 @@
 package view;
 
 import controller.ChannelController;
+import dao.UserChannelDAO;
 import dto.ChannelDTO;
 import dto.ROLE;
 import session.UserSession;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class ChannelView {
     static Scanner sc = new Scanner(System.in);
@@ -63,12 +66,23 @@ public class ChannelView {
         int isOpen = Integer.parseInt(sc.nextLine());
         System.out.print("채널 제목을 입력하세요: ");
         String channelName = sc.nextLine();
+        ChannelController.channelInsert(new ChannelDTO(0,channelName,0,isOpen));
         if (isOpen == 0) {
             //반에 있는 유저들 리스트 출력
-            System.out.print("추가할 유저를 입력하세요: ");
-
+            Set<String> set = new HashSet<>();
+            set.add(userSession.getUser_id());
+            while (true) {
+                System.out.print("추가할 유저를 입력하세요(그만하려면 q를 입력): ");
+                String temp = sc.nextLine();
+                if (temp.equals("q")) {
+                    break;
+                }
+                set.add(temp);
+            }
+            for (String user_id : set) {
+                UserChannelDAO.insertRelation(user_id);
+            }
         }
-        ChannelController.channelInsert(new ChannelDTO(0,channelName,0,isOpen));
 
     }
 
