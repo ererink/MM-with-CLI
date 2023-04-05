@@ -47,14 +47,14 @@ public class ChannelDAOImpl implements ChannelDAO{
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<ChannelDTO> list = new ArrayList<>();
-        String sql = "select * from channel where class_id = ?";
+        String sql = "select * from channel where class_id = ? or isOpen = 1";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             ps.setLong(1,class_id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                ChannelDTO dto = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3));
+                ChannelDTO dto = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3),rs.getInt(4));
                 list.add(dto);
             }
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class ChannelDAOImpl implements ChannelDAO{
             ps.setLong(2, class_id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                ChannelDTO dto = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3));
+                ChannelDTO dto = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3),rs.getInt(4));
                 list.add(dto);
             }
         } catch (SQLException e) {

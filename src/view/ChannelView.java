@@ -13,15 +13,13 @@ public class ChannelView {
     public static void channelChoice() {
 
         while (true) {
-            System.out.println("\n----------------------------------------");
-            System.out.print("[ 뒤로 가기    ");
+            System.out.println("\n-------------------------------------------------------------------------------");
+            System.out.print("[ 0. 뒤로 가기    ");
             System.out.print("1. 채널 입장   ");
-            if (userSession.getRole() == ROLE.ADMIN) {
-                System.out.print("2. 채널 추가   ");
-                System.out.print("3. 채널 업데이트   ");
-                System.out.print("4. 채널 삭제   ");
-            }
-            System.out.println("\n--------------------------------------------");
+            System.out.print("2. 채널 추가   ");
+            System.out.print("3. 채널 업데이트   ");
+            System.out.print("4. 채널 삭제   ]");
+            System.out.println("\n------------------------------------------------------------------------------");
             System.out.print("기능을 선택하세요: ");
             try {
                 int menu = Integer.parseInt(sc.nextLine());
@@ -33,24 +31,12 @@ public class ChannelView {
                         enterChannel();
                         break;
                     case 2:
-                        if (userSession.getRole() != ROLE.ADMIN) {
-                            System.out.println("잘못된 번호 입니다.");
-                            break;
-                        }
                         inputInsertChannel();
                         break;
                     case 3:
-                        if (userSession.getRole() != ROLE.ADMIN) {
-                            System.out.println("잘못된 번호 입니다.");
-                            break;
-                        }
                         inputUpdateChannel();
                         break;
                     case 4:
-                        if (userSession.getRole() != ROLE.ADMIN) {
-                            System.out.println("잘못된 번호 입니다.");
-                            break;
-                        }
                         deleteChannel();
                         break;
                     default:
@@ -69,25 +55,30 @@ public class ChannelView {
         userSession.setChannel_id(channel_id);
         //채팅 뷰 호출
     }
-    public static ChannelDTO inputChannelInfo() {
-        System.out.print("채널 제목을 입력하세요: ");
-        String channelName = sc.nextLine();
-        return new ChannelDTO(0, channelName, 0);
-    }
+
 
 
     public static void inputInsertChannel() {
-        ChannelDTO channelDTO = inputChannelInfo();
-        ChannelController.channelInsert(channelDTO);
+        System.out.print("공개채널로 만드시려면 1, 아니라면 0을 입력해주세요: ");
+        int isOpen = Integer.parseInt(sc.nextLine());
+        System.out.print("채널 제목을 입력하세요: ");
+        String channelName = sc.nextLine();
+        if (isOpen == 0) {
+            //반에 있는 유저들 리스트 출력
+            System.out.print("추가할 유저를 입력하세요: ");
+
+        }
+        ChannelController.channelInsert(new ChannelDTO(0,channelName,0,isOpen));
+
     }
 
     public static void inputUpdateChannel() {
         ChannelController.channelSelect();
-        ChannelDTO channelDTO = inputChannelInfo();
         System.out.print("업데이트할 채널 번호를 입력해주세요: ");
         long channel_id = Long.parseLong(sc.nextLine());
-        channelDTO.setChannel_id(channel_id);
-        ChannelController.channelUpdate(channelDTO);
+        System.out.print("채널 제목을 입력하세요: ");
+        String channelName = sc.nextLine();
+        ChannelController.channelUpdate(new ChannelDTO(channel_id,channelName,0,0));
     }
 
     public static void deleteChannel() {

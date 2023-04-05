@@ -4,11 +4,21 @@ public class ChannelDTO {
     private long channel_id;
     private String channel_name;
     private long class_id;
+    private int isOpen;
 
-    public ChannelDTO(long channel_id, String channel_name, long class_id) {
+    public int getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(int isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public ChannelDTO(long channel_id, String channel_name, long class_id,int isOpen) {
         this.channel_id = channel_id;
         this.channel_name = channel_name;
         this.class_id = class_id;
+        this.isOpen = isOpen;
     }
 
     public void setChannel_id(long channel_id) {
