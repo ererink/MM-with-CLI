@@ -25,14 +25,6 @@ public class ChatSuccessView {
 		
 	}
 
-//	public static void selectReplyPrint(ChatDTO chatDTO) {
-//		System.out.println(chatDTO);
-//		System.out.println("댓글 개수 : " + boardDTO.getRepliesList().size() +"개 ---------");
-//		for(ReplyDTO reply : boardDTO.getRepliesList()) {
-//			System.out.println("       ▶ " + reply );
-//		}
-//
-//	}
 
 }
 
