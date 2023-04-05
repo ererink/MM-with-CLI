@@ -1,12 +1,12 @@
 package controller;
 
-import dao.UserDAO;
-import dao.UserDAOImpl;
 import dto.ROLE;
 import dto.UserDTO;
 import service.UserService;
 import service.UserServiceImpl;
+import view.UserView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +21,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    public void getAllUsers() {
+
+    public static UserController getInstance() {
+        return instance;
+    }
+
+    public static void main() {
+        UserView.main();
+    }
+
+
+    public List<UserDTO> getAllUsers() {
+        List<UserDTO> users = new ArrayList<>();
         try {
-            List<UserDTO> users = userService.userSelectAll();
+            users = userService.userSelectAll();
             if (users.size() <= 0) {
                 // 2023/04/05_yeoooo : NoUserFoundException 으로 대체
                 // failView 출력
@@ -36,7 +47,7 @@ public class UserController {
         }
 
 
-
+        return users;
     }
 
     /**
@@ -103,17 +114,33 @@ public class UserController {
      *
      * @return
      */
-    public void authorizeUser(String id, ROLE role) {
+    public void authorizeUser(String id, int class_id) {
         try {
             UserDTO user = userService.userSelectOne(id).get();
             UserDTO target = new UserDTO(user.getUser_id(),
                     user.getUser_pw(),
                     user.getName(),
-                    role,
-                    user.getClass_id());
+                    ROLE.U,
+                    class_id);
             userService.userUpdate(target);
         } catch (RuntimeException e) {
             // 2022/04/05_yeoooo: IllegalStateException 으로 대체
+
+
+        }
+    }
+
+    public void update(String id, UserDTO target) {
+        try {
+            UserDTO user = userService.userSelectOne(id).get();
+            UserDTO to = new UserDTO(id,
+                    target.getUser_pw(),
+                    target.getName(),
+                    user.getRole(),
+                    user.getClass_id()
+            );
+            userService.userUpdate(to);
+        } catch (RuntimeException e) {
 
         }
     }
