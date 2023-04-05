@@ -39,4 +39,5 @@ public interface ChannelService {
      */
     int updateChannel(ChannelDTO channelDTO);
 
+    ChannelDTO selectOneChannel(long channel_id);
 }

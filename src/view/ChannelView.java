@@ -56,7 +56,7 @@ public class ChannelView {
         System.out.print("입장할 채널 번호를 입력해주세요: ");
         int channel_id = Integer.parseInt(sc.nextLine());
         userSession.setChannel_id(channel_id);
-        //채팅 뷰 호출
+        ChatView.menuChoice();
     }
 
 

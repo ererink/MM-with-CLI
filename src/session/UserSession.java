@@ -5,6 +5,8 @@ import dto.ROLE;
 public class UserSession {
     private String user_id = null;
     private String user_name = null;
+    private String channel_name = null;
+
 
     public void setClass_id(long class_id) {
         this.class_id = class_id;

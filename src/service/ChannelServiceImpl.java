@@ -56,5 +56,10 @@ public class ChannelServiceImpl implements ChannelService{
         return channelDAO.updateChannel(channelDTO);
     }
 
+    @Override
+    public ChannelDTO selectOneChannel(long channel_id) throws RuntimeException{
+        return channelDAO.selectOneChannel(channel_id);
+    }
+
 
 }

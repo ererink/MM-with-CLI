@@ -43,6 +43,35 @@ public class ChannelDAOImpl implements ChannelDAO{
     }
 
     @Override
+    public ChannelDTO selectOneChannel(long channel_id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ChannelDTO channelDTO = null;
+        String sql = "select * from channel where channel_id = ?";
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setLong(1,channel_id);
+            rs = ps.executeQuery();
+            if (rs.wasNull()) {
+                throw new RuntimeException();
+            }
+            while (rs.next()) {
+                channelDTO = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3),rs.getInt(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("채널 검색에 예외가 발생했습니다. 다시 조회해주세요");
+        }
+        finally {
+            DBManager.releaseConnection(con, ps, rs);
+        }
+        return channelDTO;
+    }
+
+
+    @Override
     public List<ChannelDTO> selectAllChannel(long class_id) {
         Connection con = null;
         PreparedStatement ps = null;
