@@ -22,7 +22,7 @@ public class BanView {
                 if(userSession.getRole() == ROLE.A){
                     System.out.println("\n----------------------------------------");
 
-                    System.out.print("[ 뒤로 가기    ");
+                    System.out.print("0. [ 뒤로 가기    ");
                     System.out.print("1. 반 입장하기   ");
                     System.out.print("2. 반 관리하기  ");
 
@@ -33,7 +33,7 @@ public class BanView {
                 int menu = Integer.parseInt(sc.nextLine());
                 switch (menu){
                     case 0:
-                        userSession.setClass_id(-1);
+                        userSession.setUser_id("");
                         return;
                     case 1:
                         selectAllBan();
