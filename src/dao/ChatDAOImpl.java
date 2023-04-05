@@ -72,7 +72,7 @@ public class ChatDAOImpl implements ChatDAO{
                         rs.getString("content")
                 );
             }
-            return Optional.of(dto);
+            return Optional.ofNullable(dto);
         }catch (SQLException e){
             e.printStackTrace();
 
@@ -83,7 +83,7 @@ public class ChatDAOImpl implements ChatDAO{
     }
 
     @Override
-    public List<ChatDTO> selectByContent(long channel_id, String keyWord) {
+    public List<ChatDTO> selectByTitle(long channel_id, String keyWord) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -124,15 +124,14 @@ public class ChatDAOImpl implements ChatDAO{
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
-        String sql = "insert into chat (chat_id, user_id, channel_id, title, content) values (chat_id_seq.nextval, ?, ?, ?, ?)";
+        String sql = "insert into chat (chat_id, user_id, channel_id, title, content) values (chat_id_pk.nextval, ?, ?, ?, ?)";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setLong(1, chatDTO.getChat_id());
-            ps.setString(2, chatDTO.getUser_id());
-            ps.setLong(3, chatDTO.getChannel_id());
-            ps.setString(4, chatDTO.getTitle());
-            ps.setString(5, chatDTO.getContent());
+            ps.setString(1, chatDTO.getUser_id());
+            ps.setLong(2, chatDTO.getChannel_id());
+            ps.setString(3, chatDTO.getTitle());
+            ps.setString(4, chatDTO.getContent());
 
             result = ps.executeUpdate();
         }catch (SQLException e){
@@ -172,7 +171,7 @@ public class ChatDAOImpl implements ChatDAO{
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
-        String sql = "delete from where channel_id = ? and chat_id = ?";
+        String sql = "delete from chat where channel_id = ? and chat_id = ?";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
