@@ -4,7 +4,6 @@ import dto.BanDTO;
 import java.util.List;
 
 public interface BanDAO {
-
     /**
      * 반 등록하기
      */
@@ -29,5 +28,4 @@ public interface BanDAO {
      * 반 삭제하기
      */
     int deleteBan(int classNum);
-
 }

@@ -125,7 +125,6 @@ public class BanDAOImpl implements BanDAO{
         } finally {
             DBManager.releaseConnection(con,ps);
         }
-
         return result;
     }
 
