@@ -9,11 +9,13 @@ import java.util.List;
 
 public class BanDAOImpl implements BanDAO{
 
-    //private static BanDAO instance = new BanDAOImpl();
+    private static BanDAO instance = new BanDAOImpl();
 
-//    public static BanDAO getInstance() {
-//        return instance;
-//    }
+    private BanDAOImpl(){}
+
+    public static BanDAO getInstance() {
+        return instance;
+    }
 
     @Override
     public int insertBan(BanDTO banDTO) {
