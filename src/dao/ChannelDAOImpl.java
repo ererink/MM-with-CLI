@@ -15,7 +15,7 @@ public class ChannelDAOImpl implements ChannelDAO{
     private ChannelDAOImpl() {
 
     }
-    public ChannelDAO getInstance() {
+    public static ChannelDAO getInstance() {
         return instance;
     }
 
@@ -43,15 +43,16 @@ public class ChannelDAOImpl implements ChannelDAO{
     }
 
     @Override
-    public List<ChannelDTO> selectAllChannel() {
+    public List<ChannelDTO> selectAllChannel(long class_id) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<ChannelDTO> list = new ArrayList<>();
-        String sql = "select * from channel";
+        String sql = "select * from channel where class_id = ?";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
+            ps.setLong(1,class_id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ChannelDTO dto = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3));
@@ -59,7 +60,31 @@ public class ChannelDAOImpl implements ChannelDAO{
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("전체 검색에 예외가 발생했습니다. 다시 조회해주세요");
+            throw new RuntimeException("전체 채널 검색에 예외가 발생했습니다. 다시 조회해주세요");
+        }
+        finally {
+            DBManager.releaseConnection(con, ps, rs);
+        }
+        return list;
+    }
+    public List<ChannelDTO> selectVisibleChannel(String user_id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<ChannelDTO> list = new ArrayList<>();
+        String sql = "select * from channel join user_channel_relation using channel_id where user_id = ?";
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1,user_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ChannelDTO dto = new ChannelDTO(rs.getLong(1),rs.getString(2),rs.getLong(3));
+                list.add(dto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("채널 검색에 예외가 발생했습니다. 다시 조회해주세요");
         }
         finally {
             DBManager.releaseConnection(con, ps, rs);
@@ -68,7 +93,7 @@ public class ChannelDAOImpl implements ChannelDAO{
     }
 
     @Override
-    public int deleteChannel(ChannelDTO channelDTO) {
+    public int deleteChannel(long channel_id) {
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
@@ -76,7 +101,7 @@ public class ChannelDAOImpl implements ChannelDAO{
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setLong(1, channelDTO.getChannel_id());
+            ps.setLong(1, channel_id);
             result =  ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +124,7 @@ public class ChannelDAOImpl implements ChannelDAO{
             ps = con.prepareStatement(sql);
             ps.setString(1, channelDTO.getChannel_name());
             ps.setLong(2,channelDTO.getClass_id());
+            ps.setLong(3, channelDTO.getClass_id());
             result =  ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
