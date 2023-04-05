@@ -21,8 +21,8 @@ public class ChatDTO {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ChatDTO{");
-        sb.append("chat_id=").append(chat_id);
+        final StringBuilder sb = new StringBuilder();
+        sb.append(chat_id).append("  ");
         sb.append(", user_id='").append(user_id).append('\'');
         sb.append(", channel_id=").append(channel_id);
         sb.append(", dateTime=").append(dateTime);
