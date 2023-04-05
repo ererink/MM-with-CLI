@@ -1,21 +1,32 @@
 package service;
 
-import dao.BanDAO;
 import dto.BanDTO;
 
 import java.util.List;
 
 public interface BanService {
     /**
-     * 모든 반을 조회(관리자)
-     * @return 모든 반 리스트
+     * 반 등록하기
      */
-    List<BanDAO> banSelectAll();
+    int insertBan(BanDTO banDTO);
 
     /**
-     * 반 추가(관리자)
-     * @param banDTO
-     * @return 성공시 true, 실패시 false
+     * 반 전체 검색하기
      */
-    boolean banInsert(BanDTO banDTO);
+    List<BanDTO> selectAllBan();
+
+    /**
+     * 단일 반 검색하기
+     */
+    BanDTO selectOneBan(int classNum);
+
+    /**
+     * 반 수정하기
+     */
+    int updateBan(BanDTO banDTO);
+
+    /**
+     * 반 삭제하기
+     */
+    int deleteBan(BanDTO banDTO);
 }
