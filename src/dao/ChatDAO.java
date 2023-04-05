@@ -15,7 +15,7 @@ public interface ChatDAO {
     /**
      * 조회한 하나의 채팅 출력
      */
-    Optional<ChatDTO> selectOne(long channel_id, String keyWord);
+    Optional<ChatDTO> selectOne(long chat_id);
 
     /**
      * 채팅 내용 검색 조회 목록 출력
