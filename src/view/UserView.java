@@ -20,39 +20,44 @@ public class UserView {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main() {
-        System.out.println("---------------------------------");
-        System.out.println("** 유저 관리 화면 입니다 **");
-        System.out.println("1. 유저 추가");
-        System.out.println("2. 유저 인가");
-        System.out.println("3. 유저 수정");
-        System.out.println("4. 유저 삭제");
-        System.out.println("---------------------------------");
+        while (true){
+            System.out.println("---------------------------------");
+            System.out.println("** 유저 관리 화면 입니다 **");
+            System.out.println("0. 로그아웃");
+            System.out.println("1. 유저 추가");
+            System.out.println("2. 유저 인가");
+            System.out.println("3. 유저 수정");
+            System.out.println("4. 유저 삭제");
+            System.out.println("---------------------------------");
 
-        try {
-            switch (Integer.parseInt(sc.nextLine())) {
-                case 0:
-                    userSession.setChannel_id(-1);
-                case 1:
-                    join();
-                    break;
-                case 2:
-                    getAllUser();
-                    authorizeUser();
-                    break;
-                case 3:
-                    getAllUser();
-                    update();
-                    break;
-                case 4:
-                    getAllUser();
-                    delete();
-                    break;
-                default:
-                    System.out.println("잘못된 번호 입니다.");
+            try {
+                switch (Integer.parseInt(sc.nextLine())) {
+                    case 0:
+                        userSession.setChannel_id(-1);
+                        return;
+                    case 1:
+                        join();
+                        break;
+                    case 2:
+                        getAllUser();
+                        authorizeUser();
+                        break;
+                    case 3:
+                        getAllUser();
+                        update();
+                        break;
+                    case 4:
+                        getAllUser();
+                        delete();
+                        break;
+                    default:
+                        System.out.println("잘못된 번호 입니다.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력하세요.");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("숫자를 입력하세요.");
         }
+
     }
 
     private static void join() {
