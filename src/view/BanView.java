@@ -34,15 +34,15 @@ public class BanView {
                 "$$    $$/ $$       |$$ |  $$ |$$    $$/$$    $$/ \n" +
                 " $$$$$$/  $$$$$$$$/ $$/   $$/  $$$$$$/  $$$$$$/");
 
-            while(true){
-                if(userSession.getRole() == ROLE.A){
-                    System.out.println();
-                    System.out.print("====================================");
-                    System.out.print("∥ 0 .뒤로 가기   ");
-                    System.out.print("1. 반 입장하기   ");
-                    System.out.print("2. 반 관리하기   ∥");
-                    System.out.println("===================================\n");
-                    System.out.print("선택 ▶ ");
+        while(true){
+            if(userSession.getRole() == ROLE.A){
+                System.out.println();
+                System.out.print("====================================");
+                System.out.print("∥ 0 .뒤로 가기   ");
+                System.out.print("1. 반 입장하기   ");
+                System.out.print("2. 반 관리하기   ∥");
+                System.out.println("===================================\n");
+                System.out.print("선택 ▶ ");
             }
             try{
                 int menu = Integer.parseInt(sc.nextLine());
@@ -77,6 +77,7 @@ public class BanView {
         System.out.println("====================== 입장할 반 번호를 입력해주세요. ======================");
         long class_id = Long.parseLong(sc.nextLine());
         userSession.setClass_id(class_id);
+
         ChannelView.channelChoice();
     }
 
@@ -128,17 +129,14 @@ public class BanView {
         System.out.println("※※※※※※※※※※※※※※ 추가하고 싶은 반이 없다면 X를 입력해 주세요 ※※※※※※※※※※※※※※");
         System.out.print("반 이름 ▶ ");
 
-        try{
-            String class_Name = sc.nextLine();
-            switch (class_Name){
-                case "X":
-                    return;
-                default:
-                    BanController.insertBan(new BanDTO(0,class_Name));
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("문자 입력만 가능해요!");
+        String class_Name = sc.nextLine();
+        switch (class_Name){
+            case "X":
+                return;
+            default:
+                BanController.insertBan(class_Name);
         }
+
     }
 
     /**
@@ -159,7 +157,7 @@ public class BanView {
                     System.out.println("====================== 수정하고 싶은 반 이름을 입력해주세요 ======================");
                     System.out.print("반 이름 ▶ ");
                     String class_Name = sc.nextLine();
-                    BanController.updateBan(new BanDTO(class_id, class_Name));
+                    BanController.updateBan(class_id, class_Name);
             }
         } catch (NumberFormatException e) {
             System.out.println("숫자 입력만 가능해요!");
