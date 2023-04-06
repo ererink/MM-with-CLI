@@ -18,17 +18,17 @@ public class ChatDAOImpl implements ChatDAO{
         return instance;
     }
     @Override
-    public List<ChatDTO> selectAll(String user_id, long channel_id) throws RuntimeException {
+    public List<ChatDTO> selectAll(long channel_id) throws RuntimeException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<ChatDTO> list = new ArrayList<>();
-        String sql = "select * from chat where user_id = ? and channel_id  = ? order by created_at";
+        String sql = "select * from chat where channel_id  = ? order by created_at";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, user_id);
-            ps.setLong(2, channel_id);
+
+            ps.setLong(1, channel_id);
             rs = ps.executeQuery();
 
             while (rs.next()){

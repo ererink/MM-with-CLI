@@ -10,7 +10,7 @@ public interface ChatDAO {
     /**
      * 하나의 채널에서 모든 채팅 목록 출력
      */
-    List<ChatDTO> selectAll(String user_id, long channel_id);
+    List<ChatDTO> selectAll( long channel_id);
 
     /**
      * 조회한 하나의 채팅 출력
