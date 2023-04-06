@@ -6,6 +6,9 @@ import java.util.List;
 public class PrintClass {
     private static PrintClass instance = new PrintClass();
     private static final int colNum = 150;
+    /**
+     * 현재 프린트할 STRING 정보
+     */
     private static List<List<String>> row = new ArrayList<>();
     private PrintClass() {
 
@@ -26,14 +29,27 @@ public class PrintClass {
         }
         return str;
     }
+
+    /**
+     * 새로운 줄 추가
+     */
     public static void addRow() {
         row.add(new ArrayList<>());
     }
+
+    /**
+     * 현재 줄에 요소 추가
+     * @param str
+     */
 
     public static void addElement(String str) {
         row.get(row.size() - 1).add(str);
     }
 
+    /**
+     * 현재까지 추가한 STRING 모두 출력
+     * row 비워짐
+     */
     public static void printCurrent() {
         for (List<String> stringList : row) {
             int size = stringList.size();

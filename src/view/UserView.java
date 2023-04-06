@@ -43,15 +43,16 @@ public class UserView {
 
         while (true){
             System.out.println();
-            System.out.print("===================================");
+            System.out.print("=============================================");
             System.out.print(" ?? ");
-            System.out.print("===================================\n");
-            System.out.print("∥  0. 로그아웃   ");
+            System.out.print("=============================================\n");
+            System.out.print("∥  0. 뒤로 가기   ");
             System.out.print("1. 유저 추가하기   ");
             System.out.print("2. 유저 인가하기   ");
             System.out.print("3. 유저 수정하기   ");
-            System.out.print("4. 유저 삭제하기  ∥");
-            System.out.println("\n====================================================================================");
+            System.out.print("4. 유저 삭제하기  ");
+            System.out.print("5. 유저 목록 확인하기  ∥");
+            System.out.println("\n==============================================================================================");
             System.out.print("선택 ▶ ");
 
             try {
@@ -59,6 +60,7 @@ public class UserView {
                 switch (Integer.parseInt(sc.nextLine())) {
                     case 0:
                         userSession.setChannel_id(-1);
+                        MainView.adminView();
                         return;
                     case 1:
                         join();
@@ -74,6 +76,9 @@ public class UserView {
                     case 4:
                         getAllUser();
                         delete();
+                        break;
+                    case 5:
+                        getAllUser();
                         break;
                     default:
                         System.out.println("잘못된 입력입니다. 다시 입력해주세요!");
@@ -94,11 +99,11 @@ public class UserView {
 
         System.out.println();
         System.out.println("====================== 추가할 유저 정보를 입력해주세요 ======================");
-        System.out.print("ID ▶ ");
+        System.out.print("아이디 ▶ ");
         id = sc.nextLine();
-        System.out.print("PASSWORD ▶ ");
+        System.out.print("비밀번호 ▶ ");
         pw = sc.nextLine();
-        System.out.print("NAME ▶ ");
+        System.out.print("이름 ▶ ");
         name = sc.nextLine();
         userController.join(id, pw, name);
 
@@ -125,9 +130,9 @@ public class UserView {
         System.out.println();
         System.out.println("====================== 반을 배정할 유저 정보를 입력해주세요 ======================");
         try {
-            System.out.print("ID ▶ ");
+            System.out.print("아이디 ▶ ");
             id = sc.nextLine();
-            System.out.print("CLASS ▶ ");
+            System.out.print("반 번호 ▶ ");
             class_id = Integer.parseInt(sc.nextLine());
             if (id.length() <= 0 || class_id == 0) {
                 throw new InValidInputException("공백을 입력으로 허용하지 않습니다!");
@@ -145,13 +150,13 @@ public class UserView {
         
         System.out.println();
         System.out.println("========================== 수정할 유저 정보를 입력해주세요 ==========================");
-        System.out.print("ID ▶ ");
+        System.out.print("아이디 ▶ ");
         id = sc.nextLine();
 
-        System.out.print("NAME ▶ ");
+        System.out.print("이름 ▶ ");
         name = sc.nextLine();
 
-        System.out.print("PASSWORD ▶ ");
+        System.out.print("비밀번호 ▶ ");
         pw = sc.nextLine();
 
         userController.update(id, new UserDTO(id, pw, name));
@@ -164,7 +169,7 @@ public class UserView {
         System.out.println();
         System.out.println("========================== 삭제할 유저 정보를 입력해주세요 ==========================");
 
-        System.out.print("ID ▶ ");
+        System.out.print("아이디 ▶ ");
         id = sc.nextLine();
         if (id.length() <= 0) {
             System.out.println("유효한 입력이 아닙니다!");
@@ -188,8 +193,6 @@ public class UserView {
             default:
                 System.out.println("유효하지 않은 입력입니다. 이전 메뉴로 돌아갑니다!");
         }
-
-
 
     }
 

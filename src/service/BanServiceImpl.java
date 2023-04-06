@@ -27,8 +27,10 @@ public class BanServiceImpl implements BanService{
             throw new InValidInputException();
         }
         int result = banDAO.insertBan(banDTO);
+
         if(result == 0){
             throw new NotFoundBanException("해당 반을 생성할 수 없습니다!");
+
         }
 
         return result;

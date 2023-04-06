@@ -13,12 +13,12 @@ public class BanView {
     static Scanner sc = new Scanner(System.in);
     static UserSession userSession = UserSession.getInstance();
 
-    public static void main(String[] args) {
-        //Test
-        userSession.setRole(ROLE.A);
-        banChoice();
-
-    }
+//    public static void main(String[] args) {
+//        //Test
+//        userSession.setRole(ROLE.A);
+//        banChoice();
+//
+//    }
 
     /**
      * 반(CLASS) 출력
@@ -126,8 +126,7 @@ public class BanView {
      */
     public static void insertClass(){
         System.out.println("====================== 추가하고 싶은 반 이름을 입력하세요 ======================");
-        System.out.println("================= 추가하고 싶은 반이 없다면 X 를 입력해 주세요 =================");
-        System.out.println("※※※※※※※※※※※※※※ 추가하고 싶은 반이 없다면 X 를 입력해 주세요 ※※※※※※※※※※※※※※");
+        System.out.println("※※※※※※※※※※※※※※ 추가하고 싶은 반이 없다면 X를 입력해 주세요 ※※※※※※※※※※※※※※");
         System.out.print("반 이름 ▶ ");
 
         String class_Name = sc.nextLine();

@@ -1,5 +1,9 @@
 package dto;
 
+/**
+ * <채널 정보>
+ * 채널 id, 채널 이름, 반 id, 채널 공개 여부
+ */
 public class ChannelDTO {
     private long channel_id;
     private String channel_name;
