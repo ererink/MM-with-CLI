@@ -1,6 +1,7 @@
 package dao;
 
 import dto.ChannelDTO;
+import exception.channel.ChannelNotFoundException;
 
 import java.util.List;
 
@@ -38,13 +39,13 @@ public interface ChannelDAO {
      * @param channel_id
      * @return 성공시 1, 실패시 0
      */
-    int deleteChannel(long channel_id);
+    int deleteChannel(long channel_id) throws ChannelNotFoundException;
 
     /**
      * 채널 업데이트(채널 이름)
      * @param channelDto
      * @return 성공시 1, 실패시 0
      */
-    int updateChannel(ChannelDTO channelDto);
+    int updateChannel(ChannelDTO channelDto) throws ChannelNotFoundException;
 
 }

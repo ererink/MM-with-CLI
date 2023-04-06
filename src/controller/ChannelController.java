@@ -6,6 +6,8 @@ import service.ChannelServiceImpl;
 import view.ChannelSuccessView;
 import view.FailView;
 
+import java.util.List;
+
 public class ChannelController {
     private ChannelController() {
 
@@ -21,12 +23,15 @@ public class ChannelController {
     /**
      * 현재 상태에서 볼 수 있는 채널 리스트 출력
      */
-    public static void channelSelect() {
+    public static List<ChannelDTO> channelSelect() {
+        List<ChannelDTO> ret = null;
         try {
+            ret = channelService.visibleChannelSelect();
             ChannelSuccessView.selectPrint(channelService.visibleChannelSelect());
         } catch (RuntimeException e) {
             FailView.errorMessage(e.getMessage());
         }
+        return ret;
     }
 
     /**

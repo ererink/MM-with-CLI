@@ -2,6 +2,7 @@ package dao;
 
 import common.DBManager;
 import dto.ChannelDTO;
+import exception.channel.ChannelNotFoundException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -119,7 +120,7 @@ public class ChannelDAOImpl implements ChannelDAO{
     }
 
     @Override
-    public int deleteChannel(long channel_id) {
+    public int deleteChannel(long channel_id) throws ChannelNotFoundException{
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
@@ -131,7 +132,7 @@ public class ChannelDAOImpl implements ChannelDAO{
             result =  ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("전체 검색에 예외가 발생했습니다. 다시 조회해주세요");
+            throw new ChannelNotFoundException("전체 검색에 예외가 발생했습니다. 다시 조회해주세요");
         }
         finally {
             DBManager.releaseConnection(con, ps);
@@ -140,7 +141,7 @@ public class ChannelDAOImpl implements ChannelDAO{
     }
 
     @Override
-    public int updateChannel(ChannelDTO channelDTO) {
+    public int updateChannel(ChannelDTO channelDTO) throws ChannelNotFoundException {
         Connection con = null;
         PreparedStatement ps = null;
         int result = 0;
@@ -153,7 +154,7 @@ public class ChannelDAOImpl implements ChannelDAO{
             result =  ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("업데이트에 예외가 발생했습니다. 다시 시도해주세요");
+            throw new ChannelNotFoundException("업데이트에 예외가 발생했습니다. 다시 시도해주세요");
         }
         finally {
             DBManager.releaseConnection(con, ps);

@@ -2,12 +2,12 @@ package service;
 
 import dao.ChannelDAO;
 import dao.ChannelDAOImpl;
-import dto.BanDTO;
 import dto.ChannelDTO;
 import dto.ROLE;
+import exception.channel.ChannelNotFoundException;
+import exception.channel.NoAuthException;
 import session.UserSession;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelServiceImpl implements ChannelService{
@@ -39,21 +39,38 @@ public class ChannelServiceImpl implements ChannelService{
 
     @Override
     public int addChannel(ChannelDTO channelDTO) throws RuntimeException{
-        if (channelDTO.getIsOpen() == 1 && userSession.getRole() != ROLE.A) {
-            throw new RuntimeException("관리자가 아니면 공개채널 삽입 불가능합니다!");
+        try {
+            if (channelDTO.getIsOpen() == 1 && userSession.getRole() != ROLE.A) {
+                throw new NoAuthException("관리자가 아니면 공개채널 삽입 불가능합니다!");
+            }
+        } catch (NoAuthException e) {
+            System.out.println(e.getMessage());
         }
+
         channelDTO.setClass_id(userSession.getClass_id());
         return channelDAO.insertChannel(channelDTO);
     }
 
     @Override
     public int deleteChannel(long channel_id) throws RuntimeException {
-        return channelDAO.deleteChannel(channel_id);
+        int ret=0;
+        try {
+            ret = channelDAO.deleteChannel(channel_id);
+        } catch (ChannelNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return ret;
     }
 
     @Override
     public int updateChannel (ChannelDTO channelDTO) throws RuntimeException {
-        return channelDAO.updateChannel(channelDTO);
+        int ret = 0;
+        try {
+            ret = channelDAO.updateChannel(channelDTO);
+        } catch (ChannelNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return ret;
     }
 
     @Override

@@ -4,6 +4,7 @@ import controller.ChannelController;
 import dao.UserChannelDAO;
 import dto.ChannelDTO;
 import dto.ROLE;
+import exception.channel.NoAuthException;
 import service.BanService;
 import service.BanServiceImpl;
 import service.ChannelService;
@@ -11,6 +12,7 @@ import service.ChannelServiceImpl;
 import session.UserSession;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -72,16 +74,27 @@ public class ChannelView {
     }
 
     public static void enterChannel() {
-        ChannelController.channelSelect();
+        List<ChannelDTO> list =ChannelController.channelSelect();
+        Set<Long> channel_id_set = new HashSet<>();
+        for (ChannelDTO dto : list) {
+            channel_id_set.add(dto.getChannel_id());
+        }
         System.out.println();
         System.out.println("====================== 입장할 채널 번호를 입력해주세요 ======================");
         
         // 입력값
         System.out.print("채널 번호 ▶ ");
         int channel_id = Integer.parseInt(sc.nextLine());
-        userSession.setChannel_id(channel_id);
-        userSession.setChannel_name(channelService.selectOneChannel(channel_id).getChannel_name());
-        ChatView.menuChoice();
+        try {
+            if (!channel_id_set.contains(channel_id)) {
+                throw new NoAuthException("접근할 수 없는 채널입니다!");
+            }
+            userSession.setChannel_id(channel_id);
+            userSession.setChannel_name(channelService.selectOneChannel(channel_id).getChannel_name());
+            ChatView.menuChoice();
+        } catch (NoAuthException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
@@ -117,36 +130,58 @@ public class ChannelView {
     }
 
     public static void inputUpdateChannel() {
-        ChannelController.channelSelect();
+        List<ChannelDTO> list =ChannelController.channelSelect();
+        Set<Long> channel_id_set = new HashSet<>();
+        for (ChannelDTO dto : list) {
+            channel_id_set.add(dto.getChannel_id());
+        }
         System.out.println();
         System.out.println("========================== 수정할 채널번호를 입력해주세요 ==========================");
         System.out.println("※※※※※※※※※※※※※※ 수정하고 싶은 채팅이 없다면 0을 입력해 주세요 ※※※※※※※※※※※※※※");
         System.out.print("채널 번호 ▶ ");
         long channel_id = Long.parseLong(sc.nextLine());
-        switch ((int) channel_id){
-            case 0:
-                return;
-            default:
-                System.out.print("채널 제목 ▶ ");
-                String channelName = sc.nextLine();
-                ChannelController.channelUpdate(new ChannelDTO(channel_id,channelName,0,0));
+        try {
+            if (!channel_id_set.contains(channel_id)) {
+                throw new NoAuthException("접근할 수 없는 채널입니다!");
+            }
+            switch ((int) channel_id){
+                case 0:
+                    return;
+                default:
+                    System.out.print("채널 제목 ▶ ");
+                    String channelName = sc.nextLine();
+                    ChannelController.channelUpdate(new ChannelDTO(channel_id,channelName,0,0));
+            }
+        } catch (NoAuthException e) {
+            System.out.println(e.getMessage());
         }
-
     }
 
     public static void deleteChannel() {
-        ChannelController.channelSelect();
+        List<ChannelDTO> list =ChannelController.channelSelect();
+        Set<Long> channel_id_set = new HashSet<>();
+        for (ChannelDTO dto : list) {
+            channel_id_set.add(dto.getChannel_id());
+        }
         System.out.println();
         System.out.println("========================== 삭제할 채널 번호를 입력해주세요 ==========================");
         System.out.println("※※※※※※※※※※※※※※ 삭제하고 싶은 채팅이 없다면 0을 입력해 주세요 ※※※※※※※※※※※※※※");
 
         System.out.print("채널 번호 ▶ ");
+
         int channel_id = Integer.parseInt(sc.nextLine());
-        switch (channel_id){
-            case 0:
-                return;
-            default:
-                ChannelController.channelDelete(channel_id);
+        try {
+            if (!channel_id_set.contains(channel_id)) {
+                throw new NoAuthException("접근할 수 없는 채널입니다!");
+            }
+            switch (channel_id){
+                case 0:
+                    return;
+                default:
+                    ChannelController.channelDelete(channel_id);
+            }
+        } catch (NoAuthException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
