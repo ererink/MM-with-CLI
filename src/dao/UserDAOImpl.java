@@ -3,6 +3,7 @@ package dao;
 import common.DBManager;
 import dto.ROLE;
 import dto.UserDTO;
+import exception.user.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,14 +25,10 @@ public class UserDAOImpl implements UserDAO {
      * 회원 전체 조회 함수
      */
     @Override
-    public List<UserDTO> selectAll() {
+    public List<UserDTO> selectAll() throws UserLoadFailureException {
         String sql = "SELECT * FROM users";
         List<UserDTO> users = new ArrayList<>();
-        /**
-         * @ yeoooo
-         * 2023-04-04
-         * try-with-resource
-         */
+
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -45,13 +42,13 @@ public class UserDAOImpl implements UserDAO {
                 );
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new UserLoadFailureException();
         }
 
         return users;
     }
     @Override
-    public List<UserDTO> selectByClass(long id) {
+    public List<UserDTO> selectByClass(long id) throws UserLoadFailureException{
         String sql = "SELECT * FROM users WHERE class_id = ?";
         List<UserDTO> users = new ArrayList<>();
 
@@ -69,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
                 );
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new UserLoadFailureException();
         }
 
         return users;
@@ -79,33 +76,34 @@ public class UserDAOImpl implements UserDAO {
     /**
      * 회원 단건 조회 함수
      */
-    public Optional<UserDTO> selectOne(String id) {
+    public Optional<UserDTO> selectOne(String id) throws UserLoadFailureException {
         String sql = "SELECT * FROM users WHERE user_id = ?";
-        Optional<UserDTO> user = null;
+
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                user = Optional.of(new UserDTO(rs.getString("USER_ID"),
+                return Optional.of(new UserDTO(rs.getString("USER_ID"),
                         rs.getString("USER_PW"),
                         rs.getString("USER_NAME"),
                         ROLE.valueOf(rs.getString("ROLE")),
                         rs.getInt("CLASS_ID")
                 ));
+            }else{
+                return Optional.ofNullable(null);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new UserLoadFailureException();
         }
 
-        return user;
     }
 
     @Override
     /**
-     * 회원가입 함수
+     * 회원가입 기능
      */
-    public int join(UserDTO dto) {
+    public int join(UserDTO dto) throws UserJoinFailureException {
         String sql = "INSERT INTO users(user_id, user_pw, user_name, role) VALUES(?, ?, ?, ?)";
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, dto.getUser_id());
@@ -115,12 +113,15 @@ public class UserDAOImpl implements UserDAO {
             return pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new UserJoinFailureException();
         }
     }
 
     @Override
-    public int delete(String id) {
+    /**
+     * 삭제 기능
+     */
+    public int delete(String id) throws UserDeleteFailureException {
         String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, id);
@@ -128,7 +129,7 @@ public class UserDAOImpl implements UserDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("삭제 불가합니다.");
+            throw new UserDeleteFailureException();
         }
     }
 
@@ -137,7 +138,7 @@ public class UserDAOImpl implements UserDAO {
      * 패스워드, 이름, 반, Role 수정 함수
      * 관리자 등록과 회원 가입 승인, 회원 정보 수정에 이용
      */
-    public int update(UserDTO dto) {
+    public int update(UserDTO dto) throws UserUpdateFailureException {
         String sql = "UPDATE users SET user_pw = ?, user_name = ?, ROLE = ?, class_id = ? WHERE user_id = ?";
         try (Connection con = DBManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, dto.getUser_pw());
@@ -148,7 +149,7 @@ public class UserDAOImpl implements UserDAO {
             return pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new UserUpdateFailureException();
         }
     }
 }

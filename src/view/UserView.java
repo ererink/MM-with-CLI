@@ -3,6 +3,10 @@ package view;
 import controller.UserController;
 import dto.ROLE;
 import dto.UserDTO;
+import exception.common.InValidInputException;
+import exception.user.UserDeleteFailureException;
+import exception.user.UserLoadFailureException;
+import exception.user.UserUpdateFailureException;
 import session.UserSession;
 
 import java.sql.SQLOutput;
@@ -55,6 +59,8 @@ public class UserView {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력하세요.");
+            } catch (InValidInputException e) {
+                System.out.println("공백을 입력으로 허용하지 않습니다.");
             }
         }
 
@@ -64,20 +70,15 @@ public class UserView {
         String id = "";
         String pw = "";
         String name = "";
-        try {
-            System.out.println("ID를 입력하세요..");
-            id = sc.nextLine();
-            System.out.println("패스워드를 입력하세요..");
-            pw = sc.nextLine();
-            System.out.println("이름를 입력하세요..");
-            name = sc.nextLine();
-            userController.join(id, pw, name);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException("회원 가입에 실패했습니다.");
-//            System.out.println("회원 가입에 실패 했습니다.\n초기 화면으로 돌아갑니다.");
-//            UserView.main();
-        }
+
+        System.out.println("ID를 입력하세요..");
+        id = sc.nextLine();
+        System.out.println("패스워드를 입력하세요..");
+        pw = sc.nextLine();
+        System.out.println("이름를 입력하세요..");
+        name = sc.nextLine();
+        userController.join(id, pw, name);
+
 
     }
 
@@ -95,7 +96,7 @@ public class UserView {
 //            throw new RuntimeException("인가 처리에 실패했습니다.");
 //        }
 //    }
-    private static void authorizeUser() {
+    private static void authorizeUser(){
         String id = "";
         int class_id = 0;
         try {
@@ -103,54 +104,59 @@ public class UserView {
             id = sc.nextLine();
             System.out.println("배정할 반을 입력하세요..");
             class_id = Integer.parseInt(sc.nextLine());
+            if (id.length() <= 0 || class_id == 0) {
+                throw new InValidInputException("공백은 입력으로 허용되지 않습니다.");
+            }
             userController.authorizeUser(id, class_id);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException("인가 처리에 실패했습니다.");
+        } catch (InValidInputException e) {
+            UserFailView.errorMessage(e.getMessage());
         }
     }
 
-    private static void update() {
+    private static void update() throws InValidInputException {
         String id = "";
         String name = "";
         String pw = "";
-        try {
-            System.out.println("유저 ID를 입력하세요..");
-            id = sc.nextLine();
-            System.out.println("변경할 이름을 입력하세요..");
-            name = sc.nextLine();
-            System.out.println("변경할 패스워드를 입력하세요..");
-            pw = sc.nextLine();
 
-            userController.update(id, new UserDTO(id, pw, name));
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException("수정을 완료할 수 없습니다.");
-        }
+        System.out.println("유저 ID를 입력하세요..");
+        id = sc.nextLine();
+
+        System.out.println("변경할 이름을 입력하세요..");
+        name = sc.nextLine();
+
+        System.out.println("변경할 패스워드를 입력하세요..");
+        pw = sc.nextLine();
+
+        userController.update(id, new UserDTO(id, pw, name));
+
     }
 
     private static void delete() {
         String id = "";
-        try {
-            System.out.println("유저 ID를 입력하세요..");
-            id = sc.nextLine();
-            System.out.println("정말로 삭제합니까?");
-            System.out.println("1. 확인");
-            System.out.println("2. 취소");
-            switch (Integer.parseInt(sc.nextLine())) {
-                case 1:
-                    System.out.println(id + "를 삭제합니다.");
-                    userController.delete(id);
-                    break;
-                case 2:
-                    System.out.println("삭제 작업을 취소합니다.");
-                    break;
-            }
 
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException("삭제할 수 없습니다.");
+        System.out.println("유저 ID를 입력하세요..");
+        id = sc.nextLine();
+        if (id.length() <= 0) {
+            System.out.println("유효한 입력이 아닙니다.");
+            return;
         }
+        System.out.println("정말로 삭제합니까?");
+
+        System.out.println("1. 확인");
+        System.out.println("2. 취소");
+        switch (Integer.parseInt(sc.nextLine())) {
+            case 1:
+                System.out.println(id + "를 삭제합니다.");
+                userController.delete(id);
+                break;
+            case 2:
+                System.out.println("삭제 작업을 취소합니다.");
+                break;
+            default:
+                System.out.println("유효하지 않은 입력입니다. 이전 메뉴로 돌아갑니다.");
+        }
+
+
 
     }
 

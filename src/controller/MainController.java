@@ -17,7 +17,9 @@ public class MainController {
     private static UserSession userSession = UserSession.getInstance();
 
 
-
+    /**
+     * 메인 화면이 되는 Controller의 서비스를 시작
+     */
     public static void controllerService() {
 
         MainView.login();
