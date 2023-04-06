@@ -2,6 +2,10 @@ package session;
 
 import dto.ROLE;
 
+/**
+ * 세션 정보
+ * user_id, user_name, channel_name, class_name
+ */
 public class UserSession {
     private String user_id = null;
     private String user_name = null;
