@@ -17,7 +17,7 @@ public interface BanDAO {
     /**
      * 단일 반 검색하기
      */
-    BanDTO selectOneBan(int classNum);
+    BanDTO selectOneBan(long classNum);
 
     /**
      * 반 수정하기

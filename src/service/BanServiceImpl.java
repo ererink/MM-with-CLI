@@ -38,7 +38,7 @@ public class BanServiceImpl implements BanService{
     }
 
     @Override
-    public BanDTO selectOneBan(int classNum) {
+    public BanDTO selectOneBan(long classNum) {
         BanDTO banDTO = banDAO.selectOneBan(classNum);
 
         if(banDTO == null){

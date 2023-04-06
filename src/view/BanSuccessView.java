@@ -27,11 +27,15 @@ public class BanSuccessView {
         printClass.addRow();
         printClass.addElement("반아이디");
         printClass.addElement("반이름");
+        printClass.addElement(" ");
+        printClass.addElement(" ");
 
         for (BanDTO banDTO : list) {
             printClass.addRow();
             printClass.addElement(Long.toString(banDTO.getClass_id()));
             printClass.addElement(banDTO.getClass_name());
+            printClass.addElement(" ");
+            printClass.addElement(" ");
         }
         printClass.printCurrent();
     }

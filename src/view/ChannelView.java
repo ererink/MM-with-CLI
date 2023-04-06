@@ -30,7 +30,7 @@ public class ChannelView {
         while (true) {
             System.out.println();
             System.out.print("===================================");
-            System.out.print(" CHANNEL [ "+userSession.getChannel_name()+" ] ");
+            System.out.print(" CHANNEL [ "+userSession.getClass_name()+" ] ");
             System.out.print("===================================\n");
             System.out.print("∥  0. 뒤로 가기   ");
             System.out.print("1. 채널 입장하기   ");

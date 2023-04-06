@@ -6,6 +6,15 @@ public class UserSession {
     private String user_id = null;
     private String user_name = null;
     private String channel_name = null;
+    private String class_name = null;
+
+    public String getClass_name() {
+        return class_name;
+    }
+
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
+    }
 
     public String getChannel_name() {
         return channel_name;

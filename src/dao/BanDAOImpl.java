@@ -73,7 +73,7 @@ public class BanDAOImpl implements BanDAO{
     }
 
     @Override
-    public BanDTO selectOneBan(int classNum) {
+    public BanDTO selectOneBan(long classNum) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -87,7 +87,7 @@ public class BanDAOImpl implements BanDAO{
             ps = con.prepareStatement(sql);
 
             ps.setLong(1, classNum);
-
+            rs= ps.executeQuery();
             if (rs.next()){
                 dto = new BanDTO(rs.getLong("class_id"), rs.getString("class_name"));
             }
