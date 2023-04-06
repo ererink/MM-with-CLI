@@ -26,6 +26,7 @@ public class Authentication {
                 session.setRole(accepted.getRole());
                 session.setClass_id(accepted.getClass_id());
 
+
                 return true;
             } else {
                 return false;

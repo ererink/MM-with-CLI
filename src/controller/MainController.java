@@ -45,6 +45,8 @@ public class MainController {
                     MainView.adminView();
                 } else if (userSession.getRole() == ROLE.U) {
                     MainView.userView();
+                }else if (userSession.getRole() == ROLE.N){
+                    System.out.println("승인되지 않은 계정입니다. 승인을 기다려주세요..");
                 }
             }
 

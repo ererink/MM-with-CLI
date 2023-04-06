@@ -77,7 +77,6 @@ public class BanView {
         System.out.println("====================== 입장할 반 번호를 입력해주세요. ======================");
         long class_id = Long.parseLong(sc.nextLine());
         userSession.setClass_id(class_id);
-
         ChannelView.channelChoice();
     }
 
@@ -129,14 +128,17 @@ public class BanView {
         System.out.println("※※※※※※※※※※※※※※ 추가하고 싶은 반이 없다면 X를 입력해 주세요 ※※※※※※※※※※※※※※");
         System.out.print("반 이름 ▶ ");
 
-        String class_Name = sc.nextLine();
-        switch (class_Name){
-            case "X":
-                return;
-            default:
-                BanController.insertBan(class_Name);
+        try{
+            String class_Name = sc.nextLine();
+            switch (class_Name){
+                case "X":
+                    return;
+                default:
+                    BanController.insertBan(class_Name);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("문자 입력만 가능해요!");
         }
-
     }
 
     /**

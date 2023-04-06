@@ -25,7 +25,7 @@ public class MainView {
             return true;
         } else {
             System.out.println("\n------------------------------------------------");
-            UserSuccessView.messagePrint(" * 일치하는 사용자 정보가 없습니다. 초기화면으로 돌아갑니다! *");
+            UserFailView.errorMessage(" * 일치하는 사용자 정보가 없습니다. 초기화면으로 돌아갑니다! *");
             System.out.println("------------------------------------------------");
             return false;
         }
@@ -54,7 +54,7 @@ public class MainView {
             switch (Integer.parseInt(opt)) {
                 case 0:
                     System.out.println("  종료 --<-<-<@,,, ADIOS,,,");
-                    return;
+                    System.exit(0);
                 case 1:
                     MainView.login();
                     return;
