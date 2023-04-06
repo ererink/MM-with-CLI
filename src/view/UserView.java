@@ -25,18 +25,37 @@ public class UserView {
     private static final UserController userController = UserController.getInstance();
     private static Scanner sc = new Scanner(System.in);
 
+    public static void main(String[] args) {
+        userSession.setUser_id("adoo24");
+        main();
+    }
     public static void main() {
+        System.out.println(" __    __   ______   ________  _______  \n" +
+                "/  |  /  | /      \\ /        |/       \\ \n" +
+                "$$ |  $$ |/$$$$$$  |$$$$$$$$/ $$$$$$$  |\n" +
+                "$$ |  $$ |$$ \\__$$/ $$ |__    $$ |__$$ |\n" +
+                "$$ |  $$ |$$      \\ $$    |   $$    $$< \n" +
+                "$$ |  $$ | $$$$$$  |$$$$$/    $$$$$$$  |\n" +
+                "$$ \\__$$ |/  \\__$$ |$$ |_____ $$ |  $$ |\n" +
+                "$$    $$/ $$    $$/ $$       |$$ |  $$ |\n" +
+                " $$$$$$/   $$$$$$/  $$$$$$$$/ $$/   $$/ s");
+        System.out.println();
+
         while (true){
-            System.out.println("---------------------------------");
-            System.out.println("** 유저 관리 화면 입니다 **");
-            System.out.println("0. 로그아웃");
-            System.out.println("1. 유저 추가");
-            System.out.println("2. 유저 인가");
-            System.out.println("3. 유저 수정");
-            System.out.println("4. 유저 삭제");
-            System.out.println("---------------------------------");
+            System.out.println();
+            System.out.print("===================================");
+            System.out.print(" ?? ");
+            System.out.print("===================================\n");
+            System.out.print("∥  0. 로그아웃   ");
+            System.out.print("1. 유저 추가하기   ");
+            System.out.print("2. 유저 인가하기   ");
+            System.out.print("3. 유저 수정하기   ");
+            System.out.print("4. 유저 삭제하기  ∥");
+            System.out.println("\n====================================================================================");
+            System.out.print("선택 ▶ ");
 
             try {
+
                 switch (Integer.parseInt(sc.nextLine())) {
                     case 0:
                         userSession.setChannel_id(-1);
@@ -57,12 +76,12 @@ public class UserView {
                         delete();
                         break;
                     default:
-                        System.out.println("잘못된 번호 입니다.");
+                        System.out.println("잘못된 입력입니다. 다시 입력해주세요!");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("숫자를 입력하세요.");
+                System.out.println("숫자 입력만 가능해요!");
             } catch (InValidInputException e) {
-                System.out.println("공백을 입력으로 허용하지 않습니다.");
+                System.out.println("공백을 입력으로 허용하지 않습니다!");
             }
         }
 
@@ -73,11 +92,13 @@ public class UserView {
         String pw = "";
         String name = "";
 
-        System.out.println("ID를 입력하세요..");
+        System.out.println();
+        System.out.println("====================== 추가할 유저 정보를 입력해주세요 ======================");
+        System.out.print("ID ▶ ");
         id = sc.nextLine();
-        System.out.println("패스워드를 입력하세요..");
+        System.out.print("PASSWORD ▶ ");
         pw = sc.nextLine();
-        System.out.println("이름를 입력하세요..");
+        System.out.print("NAME ▶ ");
         name = sc.nextLine();
         userController.join(id, pw, name);
 
@@ -101,13 +122,15 @@ public class UserView {
     private static void authorizeUser(){
         String id = "";
         int class_id = 0;
+        System.out.println();
+        System.out.println("====================== 반을 배정할 유저 정보를 입력해주세요 ======================");
         try {
-            System.out.println("유저 ID를 입력하세요.. ");
+            System.out.print("ID ▶ ");
             id = sc.nextLine();
-            System.out.println("배정할 반을 입력하세요..");
+            System.out.print("CLASS ▶ ");
             class_id = Integer.parseInt(sc.nextLine());
             if (id.length() <= 0 || class_id == 0) {
-                throw new InValidInputException("공백은 입력으로 허용되지 않습니다.");
+                throw new InValidInputException("공백을 입력으로 허용하지 않습니다!");
             }
             userController.authorizeUser(id, class_id);
         } catch (InValidInputException e) {
@@ -119,14 +142,16 @@ public class UserView {
         String id = "";
         String name = "";
         String pw = "";
-
-        System.out.println("유저 ID를 입력하세요..");
+        
+        System.out.println();
+        System.out.println("========================== 수정할 유저 정보를 입력해주세요 ==========================");
+        System.out.print("ID ▶ ");
         id = sc.nextLine();
 
-        System.out.println("변경할 이름을 입력하세요..");
+        System.out.print("NAME ▶ ");
         name = sc.nextLine();
 
-        System.out.println("변경할 패스워드를 입력하세요..");
+        System.out.print("PASSWORD ▶ ");
         pw = sc.nextLine();
 
         userController.update(id, new UserDTO(id, pw, name));
@@ -135,27 +160,33 @@ public class UserView {
 
     private static void delete() {
         String id = "";
+        
+        System.out.println();
+        System.out.println("========================== 삭제할 유저 정보를 입력해주세요 ==========================");
 
-        System.out.println("유저 ID를 입력하세요..");
+        System.out.print("ID ▶ ");
         id = sc.nextLine();
         if (id.length() <= 0) {
-            System.out.println("유효한 입력이 아닙니다.");
+            System.out.println("유효한 입력이 아닙니다!");
             return;
         }
-        System.out.println("정말로 삭제합니까?");
+        System.out.println(id + "님을 삭제할까요?");
 
-        System.out.println("1. 확인");
-        System.out.println("2. 취소");
+        System.out.println("\n------------------");
+        System.out.print(" 1. 확인  ");
+        System.out.println(" 2. 취소  ");
+        System.out.println("------------------");
+        System.out.print("선택 ▶ ");
         switch (Integer.parseInt(sc.nextLine())) {
             case 1:
-                System.out.println(id + "를 삭제합니다.");
+                System.out.println(id + "를 삭제합니다");
                 userController.delete(id);
                 break;
             case 2:
-                System.out.println("삭제 작업을 취소합니다.");
+                System.out.println("삭제 작업을 취소합니다");
                 break;
             default:
-                System.out.println("유효하지 않은 입력입니다. 이전 메뉴로 돌아갑니다.");
+                System.out.println("유효하지 않은 입력입니다. 이전 메뉴로 돌아갑니다!");
         }
 
 
@@ -170,7 +201,7 @@ public class UserView {
         printClass.addElement("ROLE");
         printClass.addElement("CLASS_ID");
         printClass.addRow();
-        printClass.addElement("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        printClass.addElement("-------------------------------------------------------------------------------------------------------------------------                                ");
         for (UserDTO user : users) {
             printClass.addRow();
             printClass.addElement(user.getUser_id());

@@ -9,16 +9,16 @@ public class ChatView {
 
     static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        /**
-         * 테스트용 use_id 입력
-         */
-
-        userSession.setUser_id("adoo24");
-        menuChoice();
-        
-    }
-    
+//    public static void main(String[] args) {
+//        /**
+//         * 테스트용 use_id 입력
+//         */
+//
+//        userSession.setUser_id("adoo24");
+//        menuChoice();
+//
+//    }
+//
 
     /**
      * 메뉴 출력
@@ -34,10 +34,10 @@ public class ChatView {
                 "$$    $$/ $$ |  $$ |$$ |  $$ |   $$ |   \n" +
                 " $$$$$$/  $$/   $$/ $$/   $$/    $$/   ");
         System.out.println();
-        UserSession userSession = UserSession.getInstance();
-        userSession.setChannel_id(1);
-        userSession.setClass_id(1);
-        userSession.setUser_id("adoo24");
+//        UserSession userSession = UserSession.getInstance();
+//        userSession.setChannel_id(1);
+//        userSession.setClass_id(1);
+//        userSession.setUser_id("adoo24");
         
         while (true){
             System.out.println();
@@ -45,13 +45,12 @@ public class ChatView {
             System.out.print(" CHANNEL [ "+userSession.getChannel_name()+" ] ");
             System.out.print("========================================================\n");
             System.out.print("∥  0. 뒤로 가기   ");
-
             System.out.print("1. 모든 채팅 조회하기   ");
             System.out.print("2. 채팅번호로 조회하기   ");
             System.out.print("3. 제목으로 채팅 조회하기   ");
             System.out.print("4. 채팅 등록하기   ");
             System.out.print("5. 채팅 수정하기   ");
-            System.out.print("6. 채팅 삭제하기   ");
+            System.out.print("6. 채팅 삭제하기  ∥");
             //System.out.print("7. 종료   ∥");
             System.out.println("\n==================================================================================================================================");
             System.out.print("선택 ▶ ");

@@ -50,7 +50,7 @@ public class UserController {
         try {
             users = userService.userSelectAll();
             if (users.size() <= 0) {
-                throw new UserNotFoundException("유저가 존재하지 않습니다.");
+                throw new UserNotFoundException("유저가 존재하지 않습니다!");
             }
             //Successview 추가
         } catch (UserLoadFailureException e) {
@@ -107,7 +107,9 @@ public class UserController {
                 // 2023/04/05_yeoooo : NoUserFoundException 으로 대체
                 throw new UserNotFoundException();
             }
-            UserSuccessView.messagePrint("조회가 완료되었습니다.");
+            System.out.println("\n-------------");
+            UserSuccessView.messagePrint(" * 조회 완료 *");
+            System.out.println("-------------");
             //SuccessView
         } catch (UserNotFoundException e) {
             UserFailView.errorMessage(e.getMessage());
@@ -133,11 +135,15 @@ public class UserController {
         try {
         if (id.length() <= 0 || pw.length() <= 0 || name.length() <= 0) {
             // 2023/04/05_yeoooo : InvalidInputException 으로 대체
-            throw new InValidInputException("공백은 입력으로 허용되지 않습니다.");
+            throw new InValidInputException("공백은 입력으로 허용되지 않습니다!");
         }
         UserDTO user = new UserDTO(id, pw, name);
             userService.addUser(user);
-            UserSuccessView.messagePrint("회원가입이 완료되었습니다.");
+
+            System.out.println("\n-----------------");
+            UserSuccessView.messagePrint(" * 회원가입 완료 *");
+            System.out.println("-----------------");
+
         } catch (UserJoinFailureException e) {
             UserFailView.errorMessage(e.getMessage());
         } catch (InValidInputException e) {
@@ -166,6 +172,11 @@ public class UserController {
                     ROLE.U,
                     class_id);
             userService.userUpdate(target);
+
+            System.out.println("\n-----------------");
+            UserSuccessView.messagePrint(" * 반 배정 완료 *");
+            System.out.println("-----------------");
+
         } catch (UserUpdateFailureException e) {
             UserFailView.errorMessage(e.getMessage());
 
@@ -188,7 +199,10 @@ public class UserController {
                     user.get().getClass_id()
             );
             userService.userUpdate(to);
-            UserSuccessView.messagePrint("수정이 완료되었습니다.");
+
+            System.out.println("\n-----------------");
+            UserSuccessView.messagePrint(" * 유저 수정 완료 *");
+            System.out.println("-----------------");
         } catch (UserUpdateFailureException e) {
             UserFailView.errorMessage(e.getMessage());
         } catch (UserLoadFailureException e) {
