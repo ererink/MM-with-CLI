@@ -1,5 +1,9 @@
 package dto;
 
+/**
+ * <유저 정보>
+ * 유저 id, 유저 pw, 유저 이름, 유저 역할(회원 or 관리자), 채팅 내용, 관리자
+ */
 public class UserDTO {
     private String user_id;
     private String user_pw;
