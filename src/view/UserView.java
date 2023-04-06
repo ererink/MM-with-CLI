@@ -43,15 +43,16 @@ public class UserView {
 
         while (true){
             System.out.println();
-            System.out.print("===================================");
+            System.out.print("=============================================");
             System.out.print(" ?? ");
-            System.out.print("===================================\n");
+            System.out.print("=============================================\n");
             System.out.print("∥  0. 뒤로 가기   ");
             System.out.print("1. 유저 추가하기   ");
             System.out.print("2. 유저 인가하기   ");
             System.out.print("3. 유저 수정하기   ");
-            System.out.print("4. 유저 삭제하기  ∥");
-            System.out.println("\n====================================================================================");
+            System.out.print("4. 유저 삭제하기  ");
+            System.out.print("5. 유저 목록 확인하기  ∥");
+            System.out.println("\n==============================================================================================");
             System.out.print("선택 ▶ ");
 
             try {
@@ -75,6 +76,9 @@ public class UserView {
                     case 4:
                         getAllUser();
                         delete();
+                        break;
+                    case 5:
+                        getAllUser();
                         break;
                     default:
                         System.out.println("잘못된 입력입니다. 다시 입력해주세요!");
