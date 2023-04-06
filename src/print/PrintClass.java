@@ -1,3 +1,5 @@
+package print;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class PrintClass {
     private PrintClass() {
 
     }
-    public PrintClass getInstance() {
+    static public PrintClass getInstance() {
         return instance;
     }
 
@@ -54,6 +56,8 @@ public class PrintClass {
         }
         List<List<String>> row = new ArrayList<>();
     }
+
+
 
     public static void main(String[] args) {
         addRow();
