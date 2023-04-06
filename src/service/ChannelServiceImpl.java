@@ -39,16 +39,17 @@ public class ChannelServiceImpl implements ChannelService{
 
     @Override
     public int addChannel(ChannelDTO channelDTO) throws RuntimeException{
+        int flag = 0;
         try {
             if (channelDTO.getIsOpen() == 1 && userSession.getRole() != ROLE.A) {
                 throw new NoAuthException("관리자가 아니면 공개채널 삽입 불가능합니다!");
             }
+            channelDTO.setClass_id(userSession.getClass_id());
+            flag = channelDAO.insertChannel(channelDTO);
         } catch (NoAuthException e) {
             System.out.println(e.getMessage());
         }
-
-        channelDTO.setClass_id(userSession.getClass_id());
-        return channelDAO.insertChannel(channelDTO);
+        return flag;
     }
 
     @Override

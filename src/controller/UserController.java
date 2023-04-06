@@ -4,6 +4,8 @@ import dto.ROLE;
 import dto.UserDTO;
 import exception.common.InValidInputException;
 import exception.user.*;
+import oracle.net.jdbc.TNSAddress.SOException;
+import print.PrintClass;
 import service.UserService;
 import service.UserServiceImpl;
 import view.FailView;
@@ -81,7 +83,24 @@ public class UserController {
                 // 2023/04/05_yeoooo : NoUserFoundException 으로 대체
                 throw new UserNotFoundException();
             }
+            PrintClass.addRow();
+            PrintClass.addElement("유저아이디");
+            PrintClass.addElement("유저이름");
+            PrintClass.addElement(" ");
+            PrintClass.addElement(" ");
+            PrintClass.addRow();
+            PrintClass.addElement("------------------------------------------------------------------------------------------------------------------------------------------------------------------                  ");
+
             //SuccessView
+            for (UserDTO user : users) {
+                PrintClass.addRow();
+                PrintClass.addElement(user.getUser_id());
+                PrintClass.addElement(user.getName());
+                PrintClass.addElement(" ");
+                PrintClass.addElement(" ");
+
+            }
+            PrintClass.printCurrent();
         } catch (UserNotFoundException e) {
             //SQL Exception을 처리할 예외 추가 필요
             //Failview 추가

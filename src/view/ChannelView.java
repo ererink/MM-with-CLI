@@ -1,6 +1,7 @@
 package view;
 
 import controller.ChannelController;
+import controller.UserController;
 import dao.UserChannelDAO;
 import dto.ChannelDTO;
 import dto.ROLE;
@@ -20,6 +21,7 @@ public class ChannelView {
     static Scanner sc = new Scanner(System.in);
     ChannelController channelController = ChannelController.getInstance();
     static UserSession userSession = UserSession.getInstance();
+    static UserController userController = UserController.getInstance();
 
     private static ChannelService channelService = ChannelServiceImpl.getInstance();
 
@@ -115,6 +117,7 @@ public class ChannelView {
         String channelName = sc.nextLine();
         if (isOpen == 0) {
             //반에 있는 유저들 리스트 출력
+            userController.getAllUsersByClass(userSession.getClass_id());
             Set<String> set = new HashSet<>();
             set.add(userSession.getUser_id());
             while (true) {
