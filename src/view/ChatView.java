@@ -96,9 +96,13 @@ public class ChatView {
     }
 
     /**
-     * 메뉴의 각 기능 호출
+     * 입력값을 받는 메뉴의 각 기능 호출
      */
 
+    /**
+     * 선택한 하나의 채팅 조회 및 출력
+     * @input int chat_id
+     */
     public static void inputSelectOne(){
         try {
             // 채팅 목록 출력
@@ -117,6 +121,10 @@ public class ChatView {
         }
     }
 
+    /**
+     * 키워드 검색 조회 및 결과 출력
+     * @input String keyword
+     */
     public static void inputSelectByTitle(){
         // 채팅 목록 출력
         ChatController.selectAllChat();
@@ -129,6 +137,10 @@ public class ChatView {
         ChatController.selectByTitle(userSession.getChannel_id(), word);
     }
 
+    /**
+     * 채팅 등록
+     * @input String title, String content
+     */
     public static void inputCreateChat(){
         System.out.println();
         System.out.println("====================== 채팅을 입력해주세요 ======================");
@@ -142,6 +154,10 @@ public class ChatView {
         ChatController.createChat(chat);
     }
 
+    /**
+     * 채팅 수정
+     * @input int chat_id, String content
+     */
     public static void inputUpdateChat(){
         // 채팅 목록 출력
         ChatController.selectAllChat();
@@ -158,6 +174,10 @@ public class ChatView {
         ChatController.updateChat(chat);
     }
 
+    /**
+     * 채팅 삭제
+     * @input int chat_id
+     */
     public static void inputDeleteChat(){
         // 채팅 목록 출력
         ChatController.selectAllChat();
