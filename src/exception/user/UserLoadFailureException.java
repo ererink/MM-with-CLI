@@ -3,7 +3,7 @@ package exception.user;
 import java.sql.SQLException;
 
 public class UserLoadFailureException extends Throwable {
-    String msg = "조회할 수 없습니다.";
+    String msg = "조회할 수 없습니다!";
 
     public UserLoadFailureException() {
     }
