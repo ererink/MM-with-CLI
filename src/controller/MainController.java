@@ -6,8 +6,12 @@ import session.UserSession;
 import view.BanView;
 import view.ChannelView;
 import view.MainView;
+import view.UserView;
 
 import java.util.Scanner;
+
+import static view.MainView.adminView;
+import static view.MainView.start;
 
 
 public class MainController {
@@ -21,27 +25,24 @@ public class MainController {
      * 메인 화면이 되는 Controller의 서비스를 시작
      */
     public static void controllerService() {
+        System.out.println("***********프로그램 시작합니다.***************");
+        System.out.println("종료하려면 0을 입력하세요..");
+        System.out.println();
+        while (true) {
+            MainView.start();
 
-        MainView.login();
-        if (userSession.getRole() == ROLE.A) {
-            System.out.println("***** 관리자 화면입니다 *****");
-            System.out.println("[ 1. 유저관리         2. 반 관리]");
-            int option = Integer.parseInt(sc.nextLine());
-            if (option == 1) {
-                UserController.main();
-            } else if (option == 2) {
-                BanView.banChoice();
+                if (userSession.getRole() == ROLE.A) {
+                    MainView.adminView();
+                } else if (userSession.getRole() == ROLE.U) {
+                    MainView.userView();
+                }
             }
 
-
-
-            } else if (userSession.getRole() == ROLE.U) {
-                System.out.println("***** 유저 화면입니다 *****");
-                ChannelView.channelChoice();
-            }
+        }
 
 
 
 
-    }
+
+
 }
