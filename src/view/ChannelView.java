@@ -89,6 +89,8 @@ public class ChannelView {
     public static void inputInsertChannel() {
         System.out.println();
         System.out.println("==================== √ 공개채널로 만드시려면 1, 아니라면 0을 입력해주세요 √ ====================");
+        System.out.println("※※※※※※※※※※※※※※ 추가하고 싶은 채널이 없다면 X를 입력해 주세요 ※※※※※※※※※※※※※※");
+
         System.out.print("입력 ▶ ");
         int isOpen = Integer.parseInt(sc.nextLine());
         System.out.print("채널 제목 ▶ ");
@@ -98,10 +100,10 @@ public class ChannelView {
             Set<String> set = new HashSet<>();
             set.add(userSession.getUser_id());
             while (true) {
-                System.out.print("추가할 유저의 ID (그만하기 q 입력) ▶ ");
+                System.out.print("아이디 ▶ ");
 
                 String temp = sc.nextLine();
-                if (temp.equals("q")) {
+                if (temp.equals("X")) {
                     break;
                 }
                 set.add(temp);
@@ -118,20 +120,33 @@ public class ChannelView {
         ChannelController.channelSelect();
         System.out.println();
         System.out.println("========================== 수정할 채널번호를 입력해주세요 ==========================");
+        System.out.println("※※※※※※※※※※※※※※ 수정하고 싶은 채팅이 없다면 0을 입력해 주세요 ※※※※※※※※※※※※※※");
         System.out.print("채널 번호 ▶ ");
-
         long channel_id = Long.parseLong(sc.nextLine());
-        System.out.print("채널 제목 ▶ ");
-        String channelName = sc.nextLine();
-        ChannelController.channelUpdate(new ChannelDTO(channel_id,channelName,0,0));
+        switch ((int) channel_id){
+            case 0:
+                return;
+            default:
+                System.out.print("채널 제목 ▶ ");
+                String channelName = sc.nextLine();
+                ChannelController.channelUpdate(new ChannelDTO(channel_id,channelName,0,0));
+        }
+
     }
 
     public static void deleteChannel() {
         ChannelController.channelSelect();
         System.out.println();
         System.out.println("========================== 삭제할 채널 번호를 입력해주세요 ==========================");
+        System.out.println("※※※※※※※※※※※※※※ 삭제하고 싶은 채팅이 없다면 0을 입력해 주세요 ※※※※※※※※※※※※※※");
+
         System.out.print("채널 번호 ▶ ");
         int channel_id = Integer.parseInt(sc.nextLine());
-        ChannelController.channelDelete(channel_id);
+        switch (channel_id){
+            case 0:
+                return;
+            default:
+                ChannelController.channelDelete(channel_id);
+        }
     }
 }

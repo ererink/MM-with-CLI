@@ -125,8 +125,7 @@ public class BanView {
      */
     public static void insertClass(){
         System.out.println("====================== 추가하고 싶은 반 이름을 입력하세요 ======================");
-        System.out.println("================= 추가하고 싶은 반이 없다면 X 를 입력해 주세요 =================");
-        System.out.println("※※※※※※※※※※※※※※ 추가하고 싶은 반이 없다면 X 를 입력해 주세요 ※※※※※※※※※※※※※※");
+        System.out.println("※※※※※※※※※※※※※※ 추가하고 싶은 반이 없다면 X를 입력해 주세요 ※※※※※※※※※※※※※※");
         System.out.print("반 이름 ▶ ");
 
         try{
