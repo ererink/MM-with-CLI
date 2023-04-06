@@ -4,6 +4,8 @@ import controller.ChannelController;
 import dao.UserChannelDAO;
 import dto.ChannelDTO;
 import dto.ROLE;
+import service.BanService;
+import service.BanServiceImpl;
 import service.ChannelService;
 import service.ChannelServiceImpl;
 import session.UserSession;
@@ -15,9 +17,11 @@ import java.util.Set;
 public class ChannelView {
     static Scanner sc = new Scanner(System.in);
     private static ChannelService channelService = ChannelServiceImpl.getInstance();
+    private static BanService banService = BanServiceImpl.getInstance();
     static UserSession userSession = UserSession.getInstance();
 
     public static void channelChoice() {
+        userSession.setClass_name(banService.selectOneBan(userSession.getClass_id()).getClass_name());
         System.out.println("  ______   __                                                __ \n" +
                 " /      \\ /  |                                              /  |\n" +
                 "/$$$$$$  |$$ |____    ______   _______   _______    ______  $$ |\n" +

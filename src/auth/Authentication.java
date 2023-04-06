@@ -6,8 +6,6 @@ import dto.ROLE;
 import dto.UserDTO;
 import exception.auth.LoginFailedException;
 import exception.user.UserLoadFailureException;
-import service.BanService;
-import service.BanServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
 import session.UserSession;
@@ -27,10 +25,7 @@ public class Authentication {
                 session.setUser_id(accepted.getUser_id());
                 session.setRole(accepted.getRole());
                 session.setClass_id(accepted.getClass_id());
-                if (session.getRole() == ROLE.U) {
-                    BanService banService = BanServiceImpl.getInstance();
-                    session.setClass_name(banService.selectOneBan(session.getClass_id()).getClass_name());
-                }
+
                 return true;
             } else {
                 return false;
