@@ -16,12 +16,16 @@ import java.util.Set;
 
 public class ChannelView {
     static Scanner sc = new Scanner(System.in);
-    private static ChannelService channelService = ChannelServiceImpl.getInstance();
-    private static BanService banService = BanServiceImpl.getInstance();
+    ChannelController channelController = ChannelController.getInstance();
     static UserSession userSession = UserSession.getInstance();
 
+    private static ChannelService channelService = ChannelServiceImpl.getInstance();
+
     public static void channelChoice() {
-        userSession.setClass_name(banService.selectOneBan(userSession.getClass_id()).getClass_name());
+        //반을 고르는 코드(입장)
+        //지금 들어간 반이 존재하는지 확인한 후, 지금 들어온 반의 이름을 설정
+        ChannelController.getInChannel();
+
         System.out.println("  ______   __                                                __ \n" +
                 " /      \\ /  |                                              /  |\n" +
                 "/$$$$$$  |$$ |____    ______   _______   _______    ______  $$ |\n" +
@@ -75,7 +79,7 @@ public class ChannelView {
         ChannelController.channelSelect();
         System.out.println();
         System.out.println("====================== 입장할 채널 번호를 입력해주세요 ======================");
-        
+
         // 입력값
         System.out.print("채널 번호 ▶ ");
         int channel_id = Integer.parseInt(sc.nextLine());
