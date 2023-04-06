@@ -3,9 +3,13 @@ package auth;
 import dao.AuthDAO;
 import dao.AuthDAOImpl;
 import dto.UserDTO;
+import exception.auth.LoginFailedException;
+import exception.user.UserLoadFailureException;
 import service.UserService;
 import service.UserServiceImpl;
 import session.UserSession;
+import view.FailView;
+import view.UserFailView;
 
 
 public class Authentication {
@@ -24,10 +28,12 @@ public class Authentication {
             } else {
                 return false;
             }
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            //SQL Exception 예외
-            throw new RuntimeException();
         }
+         catch (LoginFailedException e) {
+            UserFailView.errorMessage(e.getMessage());
+        } catch (UserLoadFailureException e) {
+            UserFailView.errorMessage(e.getMessage());
+        }
+        return false;
     }
 }
