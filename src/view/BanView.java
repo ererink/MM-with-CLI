@@ -13,12 +13,12 @@ public class BanView {
     static Scanner sc = new Scanner(System.in);
     static UserSession userSession = UserSession.getInstance();
 
-    public static void main(String[] args) {
-        //Test
-        userSession.setRole(ROLE.A);
-        banChoice();
-
-    }
+//    public static void main(String[] args) {
+//        //Test
+//        userSession.setRole(ROLE.A);
+//        banChoice();
+//
+//    }
 
     /**
      * 반(CLASS) 출력
