@@ -40,7 +40,7 @@ public class ChannelServiceImpl implements ChannelService{
     @Override
     public int addChannel(ChannelDTO channelDTO) throws RuntimeException{
         if (channelDTO.getIsOpen() == 1 && userSession.getRole() != ROLE.A) {
-            throw new RuntimeException("관리자가 아니면 공개채널 삽입 불가능합니다.");
+            throw new RuntimeException("관리자가 아니면 공개채널 삽입 불가능합니다!");
         }
         channelDTO.setClass_id(userSession.getClass_id());
         return channelDAO.insertChannel(channelDTO);

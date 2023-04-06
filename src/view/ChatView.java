@@ -44,13 +44,15 @@ public class ChatView {
             System.out.print("========================================================");
             System.out.print(" CHANNEL [ "+userSession.getChannel_name()+" ] ");
             System.out.print("========================================================\n");
-            System.out.print("∥  1. 모든 채팅 조회하기   ");
+            System.out.print("∥  0. 뒤로 가기   ");
+
+            System.out.print("1. 모든 채팅 조회하기   ");
             System.out.print("2. 채팅번호로 조회하기   ");
             System.out.print("3. 제목으로 채팅 조회하기   ");
             System.out.print("4. 채팅 등록하기   ");
             System.out.print("5. 채팅 수정하기   ");
             System.out.print("6. 채팅 삭제하기   ");
-            System.out.print("7. 종료   ∥");
+            //System.out.print("7. 종료   ∥");
             System.out.println("\n==================================================================================================================================");
             System.out.print("선택 ▶ ");
 
@@ -58,6 +60,9 @@ public class ChatView {
                 int menu = Integer.parseInt(sc.nextLine());
 
                 switch (menu){
+                    case 0:
+                        System.out.println();
+                        return;
                     case 1:
                         ChatController.selectAllChat();
                         break;
@@ -76,10 +81,11 @@ public class ChatView {
                     case 6:
                         inputDeleteChat();
                         break;
+                        /**
                     case 7:
                         System.out.println();
                         System.out.println("  종료 --<-<-<@,,, ADIOS,,,");
-                        return;
+                        return; */
                     default:
                         System.out.println("잘못된 입력입니다. 다시 입력해주세요!");
                 }
@@ -93,6 +99,7 @@ public class ChatView {
     /**
      * 메뉴의 각 기능 호출
      */
+
     public static void inputSelectOne(){
         try {
             // 채팅 목록 출력
@@ -156,7 +163,7 @@ public class ChatView {
         // 채팅 목록 출력
         ChatController.selectAllChat();
         System.out.println();
-        System.out.println("========================== 삭제할 채팅번호를 입력해주세요 ==========================");
+        System.out.println("========================== 삭제할 채팅 번호를 입력해주세요 ==========================");
 
         System.out.print("채팅 번호 ▶ ");
         // 입력값
