@@ -36,7 +36,7 @@ public class ChannelView {
         while (true) {
             System.out.println();
             System.out.print("===================================");
-            System.out.print(" CHANNEL [ "+userSession.getClass_name()+" ] ");
+            System.out.print(" CLASS [ "+userSession.getClass_name()+" ] ");
             System.out.print("===================================\n");
             System.out.print("∥  0. 뒤로 가기   ");
             System.out.print("1. 채널 입장하기   ");
@@ -84,12 +84,13 @@ public class ChannelView {
         
         // 입력값
         System.out.print("채널 번호 ▶ ");
-        int channel_id = Integer.parseInt(sc.nextLine());
+        Long channel_id = Long.parseLong(sc.nextLine());
         try {
             if (!channel_id_set.contains(channel_id)) {
                 throw new NoAuthException("접근할 수 없는 채널입니다!");
             }
             userSession.setChannel_id(channel_id);
+            System.out.println(channelService.selectOneChannel(channel_id).getChannel_name());
             userSession.setChannel_name(channelService.selectOneChannel(channel_id).getChannel_name());
             ChatView.menuChoice();
         } catch (NoAuthException e) {
@@ -169,17 +170,15 @@ public class ChannelView {
 
         System.out.print("채널 번호 ▶ ");
 
-        int channel_id = Integer.parseInt(sc.nextLine());
+        long channel_id = Long.parseLong(sc.nextLine());
         try {
             if (!channel_id_set.contains(channel_id)) {
                 throw new NoAuthException("접근할 수 없는 채널입니다!");
             }
-            switch (channel_id){
-                case 0:
-                    return;
-                default:
-                    ChannelController.channelDelete(channel_id);
+            if (channel_id == 0) {
+                return;
             }
+            ChannelController.channelDelete(channel_id);
         } catch (NoAuthException e) {
             System.out.println(e.getMessage());
         }
