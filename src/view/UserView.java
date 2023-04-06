@@ -46,7 +46,7 @@ public class UserView {
             System.out.print("===================================");
             System.out.print(" ?? ");
             System.out.print("===================================\n");
-            System.out.print("∥  0. 로그아웃   ");
+            System.out.print("∥  0. 뒤로 가기   ");
             System.out.print("1. 유저 추가하기   ");
             System.out.print("2. 유저 인가하기   ");
             System.out.print("3. 유저 수정하기   ");
@@ -59,6 +59,7 @@ public class UserView {
                 switch (Integer.parseInt(sc.nextLine())) {
                     case 0:
                         userSession.setChannel_id(-1);
+                        MainView.adminView();
                         return;
                     case 1:
                         join();
