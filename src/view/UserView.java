@@ -68,7 +68,7 @@ public class UserView {
 
     }
 
-    private static void join() {
+    public static void join() {
         String id = "";
         String pw = "";
         String name = "";
