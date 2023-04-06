@@ -2,6 +2,10 @@ package dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * <채팅 정보>
+ * 채팅 id, 유저 id, 채널 id, 채팅 생성 시간, 채팅 제목, 채팅 내용
+ */
 public class ChatDTO {
 
     private long chat_id;
