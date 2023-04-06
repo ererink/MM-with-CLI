@@ -11,17 +11,22 @@ public class MainView {
     private static UserSession userSession = UserSession.getInstance();
     public static Scanner sc = new Scanner(System.in);
     public static boolean login() {
-
-        System.out.println("아이디를 입력하세요.");
+        System.out.println();
+        System.out.println("==================== 아이디와 비밀번호를 입력해주세요 ====================");
+        System.out.print("아이디 ▶ ");
         String id = sc.nextLine();
-        System.out.println("비밀번호를 입력하세요.");
+        System.out.print("비밀번호 ▶ ");
         String pw = sc.nextLine();
 
         if (Authentication.login(id, pw)) {
-            UserSuccessView.messagePrint("로그인에 성공했습니다.");
+            System.out.println("\n-----------------");
+            UserSuccessView.messagePrint(" * 로그인 성공 *");
+            System.out.println("-----------------");
             return true;
         } else {
-            UserSuccessView.messagePrint("일치하는 사용자 정보가 없습니다. 초기화면으로 돌아갑니다.");
+            System.out.println("\n------------------------------------------------");
+            UserSuccessView.messagePrint(" * 일치하는 사용자 정보가 없습니다. 초기화면으로 돌아갑니다! *");
+            System.out.println("------------------------------------------------");
             return false;
         }
 
@@ -32,17 +37,23 @@ public class MainView {
 
     public static void start() {
         while (true) {
-            System.out.println("[1. 로그인         2. 회원가입]");
+            System.out.println("\n-----------------------------------");
+            System.out.println("∥ 1. 로그인            2. 회원가입 ∥");
+            System.out.println("-----------------------------------");
+            System.out.print("선택 ▶ ");
             String opt = sc.nextLine();
 
             if (opt.length() <= 0) {
-                System.out.println("유효하지 않은 입력입니다. 다시 입력해주세요.");
-                System.out.println("[1. 로그인         2. 회원가입]");
+                System.out.println("유효하지 않은 입력입니다. 다시 입력해주세요!");
+                System.out.println("\n-----------------");
+                System.out.println("∥ 1. 로그인       2. 회원가입 ∥");
+                System.out.println("-----------------");
+                System.out.print("선택 ▶ ");
                 continue;
             }
             switch (Integer.parseInt(opt)) {
                 case 0:
-                    System.out.println("프로그램을 종료합니다.");
+                    System.out.println("  종료 --<-<-<@,,, ADIOS,,,");
                     return;
                 case 1:
                     MainView.login();
@@ -51,7 +62,7 @@ public class MainView {
                     UserView.join();
                     break;
                 default:
-                    System.out.println("유효하지 않은 입력입니다.");
+                    System.out.println("유효하지 않은 입력입니다!");
                     break;
             }
         }
