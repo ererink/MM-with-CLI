@@ -114,7 +114,10 @@ public class ChannelView {
         System.out.print("입력 ▶ ");
         int isOpen = Integer.parseInt(sc.nextLine());
         System.out.print("채널 제목 ▶ ");
+
         String channelName = sc.nextLine();
+        ChannelController.channelInsert(new ChannelDTO(0,channelName,0,isOpen));
+
         if (isOpen == 0) {
             //반에 있는 유저들 리스트 출력
             userController.getAllUsersByClass(userSession.getClass_id());
@@ -125,15 +128,15 @@ public class ChannelView {
 
                 String temp = sc.nextLine();
                 if (temp.equals("X")) {
+                    for (String user_id : set) {
+                        UserChannelDAO.insertRelation(user_id);
+                    }
                     break;
                 }
                 set.add(temp);
             }
-            for (String user_id : set) {
-                UserChannelDAO.insertRelation(user_id);
-            }
+
         }
-        ChannelController.channelInsert(new ChannelDTO(0,channelName,0,isOpen));
 
     }
 
