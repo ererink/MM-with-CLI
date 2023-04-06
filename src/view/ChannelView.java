@@ -17,11 +17,6 @@ public class ChannelView {
     private static ChannelService channelService = ChannelServiceImpl.getInstance();
     static UserSession userSession = UserSession.getInstance();
 
-    public static void main(String[] args) {
-        userSession.setUser_id("adoo24");
-
-        channelChoice();
-    }
     public static void channelChoice() {
         System.out.println("  ______   __                                                __ \n" +
                 " /      \\ /  |                                              /  |\n" +
