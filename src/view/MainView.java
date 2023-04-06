@@ -68,8 +68,11 @@ public class MainView {
         }
     }
     public static void adminView() {
-        System.out.println("***** 관리자 화면입니다 *****");
-        System.out.println("[ 1. 유저관리         2. 반 관리]");
+        System.out.println("++++++++ ADMIN ++++++++");
+        System.out.println();
+        System.out.println("\n--------------------");
+        System.out.println("∥ 1. 유저 관리       2. 반 관리 ∥");
+        System.out.println("---------------------");
         int option = Integer.parseInt(sc.nextLine());
         if (option == 1) {
             UserController.main();
@@ -79,7 +82,9 @@ public class MainView {
     }
 
     public static void userView() {
-        System.out.println("***** 유저 화면입니다 *****");
+        System.out.println();
+        System.out.println("+++++++++++++ 환영합니다, "+userSession.getUser_id()+" 님! +++++++++++++");
+        System.out.println();
         ChannelView.channelChoice();
     }
 }
