@@ -1,6 +1,7 @@
 package view;
 
 import dto.BanDTO;
+import print.PrintClass;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * 성공 시 출력될 메세지
  */
 public class BanSuccessView {
+    private static PrintClass printClass = PrintClass.getInstance();
     /**
      * 반 등록, 수정, 삭제 성공시
      * @param message
@@ -21,10 +23,17 @@ public class BanSuccessView {
      * @param list
      */
     public static void selectPrint(List<BanDTO> list) {
-        System.out.println("===========MM with CLI CLASS LIST============");
+        System.out.println("================================================MM with CLI CLASS LIST================================================");
+        printClass.addRow();
+        printClass.addElement("반아이디");
+        printClass.addElement("반이름");
+
         for (BanDTO banDTO : list) {
-            System.out.println(banDTO);
+            printClass.addRow();
+            printClass.addElement(Long.toString(banDTO.getClass_id()));
+            printClass.addElement(banDTO.getClass_name());
         }
+        printClass.printCurrent();
     }
 
     /**

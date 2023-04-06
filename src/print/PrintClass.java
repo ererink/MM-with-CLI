@@ -54,7 +54,7 @@ public class PrintClass {
             }
             System.out.println();
         }
-        List<List<String>> row = new ArrayList<>();
+        row = new ArrayList<>();
     }
 
 

@@ -7,6 +7,7 @@ import exception.common.InValidInputException;
 import exception.user.UserDeleteFailureException;
 import exception.user.UserLoadFailureException;
 import exception.user.UserUpdateFailureException;
+import print.PrintClass;
 import session.UserSession;
 
 import java.sql.SQLOutput;
@@ -15,10 +16,11 @@ import java.util.Scanner;
 
 public class UserView {
 
-//    UserController userController = UserController.getInstance();
+    //    UserController userController = UserController.getInstance();
 //    private UserView(UserController userController) {
 //        this.userController = userController;
 //    }
+    private static PrintClass printClass = PrintClass.getInstance();
     static UserSession userSession = UserSession.getInstance();
     private static final UserController userController = UserController.getInstance();
     private static Scanner sc = new Scanner(System.in);
@@ -162,10 +164,21 @@ public class UserView {
 
     public static void getAllUser() {
         List<UserDTO> users = userController.getAllUsers();
-        System.out.println("|   아이디   |    이름   |    ROLE   |   반 번호  ");
+        printClass.addRow();
+        printClass.addElement("ID");
+        printClass.addElement("NAME");
+        printClass.addElement("ROLE");
+        printClass.addElement("CLASS_ID");
+        printClass.addRow();
+        printClass.addElement("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         for (UserDTO user : users) {
-            System.out.println(print(user));
+            printClass.addRow();
+            printClass.addElement(user.getUser_id());
+            printClass.addElement(user.getName());
+            printClass.addElement(user.getRole().toString());
+            printClass.addElement(Long.toString(user.getClass_id()));
         }
+        printClass.printCurrent();
     }
 
     public static String print(UserDTO userDTO) {

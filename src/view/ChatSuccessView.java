@@ -1,18 +1,30 @@
 package view;
 
 import dto.ChatDTO;
+import print.PrintClass;
 
 import java.util.List;
 
 public class ChatSuccessView {
-
+	private static PrintClass printClass = PrintClass.getInstance();
 	public static void selectPrint(List<ChatDTO> list) {
 		System.out.println();
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 총 "+list.size()+" 개의 게시물");
-		System.out.println("    ID       TITLE      CONTENT ");
+		printClass.addRow();
+		printClass.addElement("채팅아이디");
+		printClass.addElement("유저아이디");
+		printClass.addElement("제목");
+		printClass.addElement("내용");
+		printClass.addElement("날짜");
 		for(ChatDTO chat : list) {
-			System.out.println(chat);
+			printClass.addRow();
+			printClass.addElement(Long.toString(chat.getChat_id()));
+			printClass.addElement(chat.getUser_id());
+			printClass.addElement(chat.getTitle());
+			printClass.addElement(chat.getContent());
+			printClass.addElement(chat.getDateTime().toString().substring(2,10));
 		}
+		printClass.printCurrent();
 		
 	}
 
@@ -22,9 +34,19 @@ public class ChatSuccessView {
 	}
 
 	public static void selectByNoPrint(ChatDTO chatDTO) {
-		System.out.println("    ID       TITLE      CONTENT ");
-		System.out.println(chatDTO);
-		
+		printClass.addRow();
+		printClass.addElement("채팅아이디");
+		printClass.addElement("유저아이디");
+		printClass.addElement("제목");
+		printClass.addElement("내용");
+		printClass.addElement("날짜");
+		printClass.addRow();
+		printClass.addElement(Long.toString(chatDTO.getChat_id()));
+		printClass.addElement(chatDTO.getUser_id());
+		printClass.addElement(chatDTO.getTitle());
+		printClass.addElement(chatDTO.getContent());
+		printClass.addElement(chatDTO.getDateTime().toString().substring(2,10));
+		printClass.printCurrent();
 	}
 
 }
