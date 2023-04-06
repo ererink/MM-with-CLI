@@ -3,6 +3,10 @@ package service;
 import dao.UserDAO;
 import dao.UserDAOImpl;
 import dto.UserDTO;
+import exception.user.UserDeleteFailureException;
+import exception.user.UserJoinFailureException;
+import exception.user.UserLoadFailureException;
+import exception.user.UserUpdateFailureException;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,68 +27,62 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> userSelectAll() {
+    public List<UserDTO> userSelectAll() throws UserLoadFailureException {
         List<UserDTO> users = null;
         try {
             users = dao.selectAll();
-
-        } catch (RuntimeException e) {
-
+        }
+        catch (UserLoadFailureException e) {
+            throw new UserLoadFailureException();
         }
         return users;
     }
     @Override
-    public List<UserDTO> selectByClass(long id) {
+    public List<UserDTO> selectByClass(long id) throws UserLoadFailureException {
         List<UserDTO> users = null;
         try {
             users = dao.selectByClass(id);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+        } catch (UserLoadFailureException e) {
+            throw new UserLoadFailureException();
         }
         return users;
     }
 
     @Override
-    public Optional<UserDTO> userSelectOne(String id) {
-        Optional<UserDTO> user = null;
+    public Optional<UserDTO> userSelectOne(String id) throws UserLoadFailureException {
         try {
-            user = dao.selectOne(id);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            return dao.selectOne(id);
+        } catch (UserLoadFailureException e) {
+            throw new UserLoadFailureException();
         }
-        return user;
     }
 
     @Override
-    public int userUpdate(UserDTO userDTO) {
+    public int userUpdate(UserDTO userDTO) throws UserUpdateFailureException {
         try {
             return dao.update(userDTO);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+        } catch (UserUpdateFailureException e) {
+            throw new UserUpdateFailureException();
         }
 
     }
 
     @Override
-    public int userDelete(String id) {
+    public int userDelete(String id) throws UserDeleteFailureException {
         try {
             return dao.delete(id);
-        } catch (RuntimeException e) {
+        } catch (UserDeleteFailureException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new UserDeleteFailureException();
         }
     }
 
     @Override
-    public int addUser(UserDTO dto) {
+    public int addUser(UserDTO dto) throws UserJoinFailureException {
         try {
             return dao.join(dto);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+        } catch (UserJoinFailureException e) {
+            throw new UserJoinFailureException();
         }
     }
 
