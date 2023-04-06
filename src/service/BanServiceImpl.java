@@ -22,7 +22,7 @@ public class BanServiceImpl implements BanService{
     public int insertBan(BanDTO banDTO) {
         int result = banDAO.insertBan(banDTO);
         if(result == 0 ){
-            throw new RuntimeException("해당 반을 생성할 수 없습니다.");
+            throw new RuntimeException("해당 반을 생성할 수 없습니다!");
         }
         return result;
     }
@@ -32,7 +32,7 @@ public class BanServiceImpl implements BanService{
         List<BanDTO> banList  = banDAO.selectAllBan();
 
         if(banList.size() == 0){
-            throw new RuntimeException("반의 정보를 불러올 수 없습니다.");
+            throw new RuntimeException("반의 정보가 존재하지 않습니다!");
         }
         return banList;
     }
@@ -42,7 +42,7 @@ public class BanServiceImpl implements BanService{
         BanDTO banDTO = banDAO.selectOneBan(classNum);
 
         if(banDTO == null){
-            throw new RuntimeException("해당 반이 존재하지 않습니다.");
+            throw new RuntimeException("해당 반이 존재하지 않습니다!");
         }
         return banDTO;
     }
@@ -50,7 +50,7 @@ public class BanServiceImpl implements BanService{
     public int updateBan(BanDTO banDTO) {
         int result = banDAO.updateBan(banDTO);
         if(result == 0){
-            throw new RuntimeException("반의 정보를 변경할 수 없습니다. 다시 변경해 주세요.");
+            throw new RuntimeException("반의 정보를 변경할 수 없습니다!");
         }
         return result;
     }
@@ -60,7 +60,7 @@ public class BanServiceImpl implements BanService{
         int result = banDAO.deleteBan(classNum);
 
         if(result == 0){
-            throw new RuntimeException("반의 정보를 삭제할 수 없습니다. 다시 삭제해 주세요.");
+            throw new RuntimeException("반이 삭제되지 않았습니다!");
         }
         return 0;
     }
